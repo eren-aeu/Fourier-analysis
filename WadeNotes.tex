@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Fourier analysis}
+\author{eren}
+\date{July 2023}
+\usepackage{amsmath,amssymb, amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+
+\maketitle
+
+\section{What is Fourier Analysis?}
+\section{Why Fourier Analysis?}
+
+\section{Introduction}
+\begin{definition}[Fourier series]\footnotemark{}
+\footnotetext{Although I do not like the "devil's triangle", definition + theorem + proof, for a fast introduction I hope it is okay.}
+    Let \(f\) be an integrable function on [$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
+    \[
+    S(f)(x) = a_0(f)  / 2 +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    \]
+
+    The partial sums $S_N($\(f\)) are defined as
+    \[
+    S_N(f)(x) = a_0(f)  / 2 +  \sum_{k = 1}^{N} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    \]
+    
+    where the coefficients $a_k(f)$ and $b_k(f)$ are defined as
+
+    \[
+    a_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx
+    \]
+    \[
+    b_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx
+    \]
+\end{definition}
+\begin{theorem}[Fourier]
+    If a trigonometric series 
+    \[
+    S := a_0  / 2 +  \sum_{k = 1}^{N} (a_k  \cos(kx) + b_k  \sin(kx))
+    \]
+   converges uniformly to a function \(f\), the $S$ is the Fourier series of \(f\), i.e. $S(f)$.
+\end{theorem}
+
+    Here comes an important and a modern concept, orthogonality\footnotemark{}. We say two functions $f$ and $g$ are orthogonal (in our context, Fourier analysis) if $\int_{-\pi}^{\pi} f(x)g(x)\,dx = 0$. A careful observer may notice after some time spend on struggling with the proof that these three "orthogonalities" hold:
+    \[
+    \int_{-\pi}^{\pi} \cos(mx)cos(nx) = \begin{cases} 
+                                        0 & m \neq n \\
+                                      \pi &  m = n \neq 0\\
+                                     2\pi & m = n = 0
+                                        \end{cases}
+    \]
+    \[
+    \int_{-\pi}^{\pi} \sin(mx)sin(nx) = \begin{cases} 
+                                        0 & m \neq n \\
+                                      \pi &  m = n \neq 0\\
+                                        0 & m = n = 0
+                                        \end{cases}
+    \]
+    \[
+    \int_{-\pi}^{\pi} \sin(mx)cos(nx) = 0  
+    \]
+    
+    \footnotetext{As the name suggests, it is a generalisation of the concept "being perpendicular}
+\begin{proof}[Proof idea]
+    If we multiply each side with $\cos(kx)$ and integrate, all the terms except the $a_k \cos(kx)$ will disappear. From here $a_k = a_k(f)$ follows easily. \hfill
+    \indent Notice the necessity of having "uniform" convergence. In order to be able to use the power of orthogonality, we should "distribute" the integral to each term of the series which can only be done under the assumption of uniform convergence.
+\end{proof}
+    Now, two central questions in Fourier analysis is to be stated:
+
+\textbf{Convergence Question.} Given a function \( f : \mathbb{R} \to \mathbb{R} \), periodic on \( \mathbb{R} \) and integrable on \( [-\pi, \pi] \), does the Fourier series of \( f \) converge to \( f \)?
+
+\textbf{Uniqueness Question.} If a trigonometric series \( S \) converges to some function \( f \) integrable on \( [-\pi, \pi] \), is S the Fourier series of \(f\)?
+
+Uniqueness question is answered if the convergence is uniform. We will try to answer these two fundemental questions in the next sections.
+
+\textbf{Definition.} Let $N$ be a nonnegative integer.
+\begin{enumerate}
+  \item[(i)] The Dirichlet kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \[
+  D_N(x) = \begin{cases}
+            \frac{1}{2} & \text{if } N = 0, \\
+            \frac{1}{2}  + \sum_{k=1}^{N} \cos(kx) & \text{if } N \in \mathbb{N}.
+           \end{cases}
+  \]
+  
+  \item[(ii)] The Fejer kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \[
+  K_N(x) = \begin{cases}
+            \frac{1}{2} & \text{if } N = 0, \\
+            \frac{1}{2} + \sum_{k=1}^{N}\left( 1 - \frac{k}{N + 1} \right)\cos(kx) & \text{if } N \in \mathbb{N}.
+           \end{cases}
+  \]
+\end{enumerate}
+
+
+
+\end{document}
