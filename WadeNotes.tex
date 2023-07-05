@@ -6,6 +6,11 @@
 \date{July 2023}
 \usepackage{amsmath,amssymb, amsthm}
 
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{exercise}
+\newtheorem*{exercise}{Exercises}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -21,14 +26,14 @@
 \footnotetext{Although I do not like the "devil's triangle", definition + theorem + proof, for a fast introduction I hope it is okay.}
     Let \(f\) be an integrable function on [$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
     \[
-    S(f)(x) = a_0(f)  / 2 +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    S(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
     \]
 
     The partial sums $S_N($\(f\)) are defined as
     \[
-    S_N(f)(x) = a_0(f)  / 2 +  \sum_{k = 1}^{N} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    S_N(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{N} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
     \]
-    
+
     where the coefficients $a_k(f)$ and $b_k(f)$ are defined as
 
     \[
@@ -39,7 +44,7 @@
     \]
 \end{definition}
 \begin{theorem}[Fourier]
-    If a trigonometric series 
+    If a trigonometric series
     \[
     S := a_0  / 2 +  \sum_{k = 1}^{N} (a_k  \cos(kx) + b_k  \sin(kx))
     \]
@@ -48,23 +53,23 @@
 
     Here comes an important and a modern concept, orthogonality\footnotemark{}. We say two functions $f$ and $g$ are orthogonal (in our context, Fourier analysis) if $\int_{-\pi}^{\pi} f(x)g(x)\,dx = 0$. A careful observer may notice after some time spend on struggling with the proof that these three "orthogonalities" hold:
     \[
-    \int_{-\pi}^{\pi} \cos(mx)cos(nx) = \begin{cases} 
+    \int_{-\pi}^{\pi} \cos(mx)cos(nx) = \begin{cases}
                                         0 & m \neq n \\
                                       \pi &  m = n \neq 0\\
                                      2\pi & m = n = 0
                                         \end{cases}
     \]
     \[
-    \int_{-\pi}^{\pi} \sin(mx)sin(nx) = \begin{cases} 
+    \int_{-\pi}^{\pi} \sin(mx)sin(nx) = \begin{cases}
                                         0 & m \neq n \\
                                       \pi &  m = n \neq 0\\
                                         0 & m = n = 0
                                         \end{cases}
     \]
     \[
-    \int_{-\pi}^{\pi} \sin(mx)cos(nx) = 0  
+    \int_{-\pi}^{\pi} \sin(mx)cos(nx) = 0
     \]
-    
+
     \footnotetext{As the name suggests, it is a generalisation of the concept "being perpendicular}
 \begin{proof}[Proof idea]
     If we multiply each side with $\cos(kx)$ and integrate, all the terms except the $a_k \cos(kx)$ will disappear. From here $a_k = a_k(f)$ follows easily. \hfill
@@ -76,7 +81,8 @@
 
 \textbf{Uniqueness Question.} If a trigonometric series \( S \) converges to some function \( f \) integrable on \( [-\pi, \pi] \), is S the Fourier series of \(f\)?
 
-Uniqueness question is answered if the convergence is uniform. We will try to answer these two fundemental questions in the next sections.
+Uniqueness question is answered if the convergence is uniform. We will try to answer these two fundemental questions in the next sections. Now comes the two important definitions which will play an important role in the next chapter.\footnotemark{}
+\footnotetext{You may say "Then why given here?" You are right.}
 
 \textbf{Definition.} Let $N$ be a nonnegative integer.
 \begin{enumerate}
@@ -87,7 +93,7 @@ Uniqueness question is answered if the convergence is uniform. We will try to an
             \frac{1}{2}  + \sum_{k=1}^{N} \cos(kx) & \text{if } N \in \mathbb{N}.
            \end{cases}
   \]
-  
+
   \item[(ii)] The Fejer kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
   \[
   K_N(x) = \begin{cases}
@@ -97,6 +103,63 @@ Uniqueness question is answered if the convergence is uniform. We will try to an
   \]
 \end{enumerate}
 
+\begin{remark}
+    If $N$ is a nonnegative integer, then
+\[
+K_N(x) = \frac{D_0(x) + D_1(x) + \dots + D_N(x)}{N+1}
+\]
+for all $x \in \mathbb{R}$
+\end{remark}
+
+\begin{theorem}
+    If $x$ cannot be written in the form $2k\pi$ for any $k \in \mathbb{Z}$, then the following equalities hold
+
+    \[
+    D_N(x) = \frac{\sin(N + \frac{1}{2})x}{2\sin(\frac{x}{2})}
+    \]
+    \[
+    K_N(x) = \frac{2}{N+1}(\frac{\sin(\frac{N + 1}{2})x}{2\sin(\frac{x}{2})})^2
+    \]
+\end{theorem}
+\begin{proof}[Proof idea] We try to express  $D_N(x)\sin(\frac{x}{2}$ in a different form. Here we remember (after a while of course) the forgotten high school formula,
+\[
+\cos(\alpha)\sin(\beta) = \sin(\alpha + \beta) - \sin(\alpha - \beta)
+\]
+    Then, the result is a telescoping sum yielding the desired expression.
+\end{proof}
+
+\section*{Exercises}
+\begin{enumerate}
+    \item Prove that if \(f\) is integrable, then
+    \[
+    S_N(f)(x) = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\,dt
+    \]
+    \item Let \(f\) be a function defined as
+    \[
+    f(x) = \begin{cases}
+        \frac{x}{|x|} & x \neq 0\\
+        0             & x = 0
+    \end{cases}
+    \]
+    \textbf{(a)} Compute the Fourier coefficients of $f$.
+
+    \textbf{(b)} Prove that
+    \[
+    (S_{2N} f)(x) = \frac{2}{\pi} \int_{-\pi}^{\pi} \frac{\sin(2Nt)}{\sin(t)} \,dt
+    \]
+    for $x \in [-\pi,\pi]$ and $N \in \mathbb{N}$.
+
+    \textbf{(c) [Gibbs's phenomenon].} Prove that
+    \[
+    \lim_{N \to \infty}(S_{2N} f)(\frac{\pi}{2N}) = -\frac{2}{\pi}\int_{-\pi}^{\pi} \frac{\sin(t)}{t} dt \approx 1.179
+    \]
+    as $N \to \infty$.
+
+    \begin{proof}[Hint]
+        \textbf{(c)} Use uniform convergence to interchange the limit and integral.
+    \end{proof}
+\end{enumerate}
+\section{Summability of Fourier Series}
 
 
 \end{document}
