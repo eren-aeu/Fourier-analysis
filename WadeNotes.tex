@@ -4,12 +4,16 @@
 \title{Fourier analysis}
 \author{eren}
 \date{July 2023}
-\usepackage{amsmath,amssymb, amsthm}
+\usepackage{amsmath,amssymb, amsthm, mathtools}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
-\theoremstyle{exercise}
-\newtheorem*{exercise}{Exercises}
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{example}
+\newtheorem*{example}{Example}
+
+
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -128,13 +132,34 @@ for all $x \in \mathbb{R}$
     Then, the result is a telescoping sum yielding the desired expression.
 \end{proof}
 
-\section*{Exercises}
-\begin{enumerate}
-    \item Prove that if \(f\) is integrable, then
+
+
+     \begin{remark}
+         Prove that if \(f\) is integrable, then
     \[
     S_N(f)(x) = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\,dt
     \]
-    \item Let \(f\) be a function defined as
+     \end{remark}
+    \begin{proof}
+        we start by looking at an arbitrary term of $S_Nf(x)$,
+
+        \begin{align*}
+            a_k\cos(kx) + b_k\sin(kx) &= \frac{1}{\pi}\int_{-\pi}^{\pi}\cos(kt)f(t)dt \cdot \cos(kx) + \frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kt)f(t)dt \cdot \sin(kx)\\
+        &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)(\cos(kt)\cos(kx) + \sin(kt)\sin(kx))dt\\
+        &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos((x-t)k)dt\\
+        \end{align*}
+        Now, we add these terms up,
+        \begin{align*}
+            S_N(x) &=\frac{a_0}{2} + \sum_{k=1}^{N} (a_k\cos(kx) + b_k\sin(kx))\\
+            &= \frac{a_0}{2} + \sum_{k=1}^{N}(\frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos((x-t)k)dt) \\
+            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t) (\frac{a_0}{2} + \sum_{k=1}^{N}\cos((x-t)k)dt)) \\
+            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)dt \qedhere
+        \end{align*}
+
+    \end{proof}
+
+     \begin{example}
+     Let \(f\) be a function defined as
     \[
     f(x) = \begin{cases}
         \frac{x}{|x|} & x \neq 0\\
@@ -154,12 +179,78 @@ for all $x \in \mathbb{R}$
     \lim_{N \to \infty}(S_{2N} f)(\frac{\pi}{2N}) = -\frac{2}{\pi}\int_{-\pi}^{\pi} \frac{\sin(t)}{t} dt \approx 1.179
     \]
     as $N \to \infty$.
+     \end{example}
+
 
     \begin{proof}[Hint]
         \textbf{(c)} Use uniform convergence to interchange the limit and integral.
     \end{proof}
-\end{enumerate}
-\section{Summability of Fourier Series}
 
+\section{Summability of Fourier Series}
+Continuous functions are known to be "well-behaving" functions in many contexts for many mathematicians. But when it comes to Fourier analysis, the basic (and basis) "Convergence question" becomes very difficult to answer even for continuous functions, of course better than not-continuous ones. Here we replace "convergence of functions" with a simpler kind of "convergence", being summable, and show that Fourier series of any continuous periodic function \(f\) is uniformly summable to \(f\).
+
+\begin{definition}
+    A series $\sum_{k=0}^{\infty} a_k$ with partial sums $S_N$ is said to be \textit{Cesaro summable} to $L$ if \textit{Cesaro means}
+    \[
+    \sigma_N \vcentcolon =  \frac{S_0 + S_1 + \dots + S_N }{N+1}
+    \]
+    converges to $L$ as $N \longrightarrow \infty$.
+\end{definition}
+Following remarks shows that summability is a generalisation of convergence.
+\begin{remark}
+    If $\sum_{k=0}^{\infty} a_k$ converges to $L < \infty$ then it is Cesaro summable to $L$.
+\end{remark}
+Note that the converse of the remark is not true, as an example take $\sum_{k = 0}^{\infty} (-1) ^ k$.\par
+Now, we weaken our \textit{Convergence Question}: \\
+\textbf{Summability Question} Given a function $f: \mathbb{R} \xrightarrow{} \mathbb{R} $ periodic on $\mathbb{R}$ and integrable on $[-\pi, \pi]$, is $Sf$ Cesaro summable to \(f\)?\par
+We give here a lemma which will make $\sigma_N f$ easy to deal with (especially when we try to estimate $|\sigma_N f - f|$).
+
+\begin{lemma}
+    Let $f: \mathbb{R} \xrightarrow{} \mathbb{R} $ periodic on $\mathbb{R}$ and integrable on $[-\pi, \pi]$. Then,
+    \[
+    \sigma_Nf(x) = \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x-t)dt
+    \]
+    for all $N \in \mathbb{N}$ and for all $ x \in \mathbb{R}$.\footnotemark{}
+    \footnotetext{This may remind you the convolution and you are right!}
+\end{lemma}
+
+\begin{proof}
+    \begin{align*}
+    \sigma_Nf(x) &= \frac{S_0f + S_1f + \dots + S_Nf}{N+1}\\
+                 &= \frac{\sum_{k = 0}^{N}S_kf}{N+1} \\
+                 &= \frac{\sum_{k = 0}^{N}\frac{1}{\pi}\int_{-\pi}^{\pi}D_k(t)f(x-t)dt}{N+1} &&\text{(see exercise 1.1)}\\
+                 &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x-t)\frac{\sum_{k = 0}^{N}D_k}{N+1}dt &&\text{(interchange sum \& integral for finite series)}\\
+                 &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x-t)K_N(t)dt &&\text{(see the remark for $D_N$ and $K_N$)}\qedheres
+    \end{align*}
+\end{proof}
+\par
+To go further, we need to investigate \textit{Fejer kernel}s more. As will be seen, they act similar to the so-called \textit{Dirac-delta} ($\delta$) function.
+\begin{lemma}
+    For each natural number $N$,
+    \begin{align}
+        K_N(t) &\geq 0 for all t \in \mathbb{R},\\
+        \intertext{and}
+        &\frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)dt = 1,\\
+        \intertext{for each  $\pi > \delta > 0$,}
+        &\lim_{N \to \infty} \int_{\delta}^{\pi}|K_N(t)|dt = 0.
+    \end{align}
+\end{lemma}
+\begin{proof}{Proof idea.}
+    For the first one, use Theorem 2 for $x \neq 2\pi k$. For second, use the definition of $K_N$ and for the third, observe that $\sin(\frac{t}{2}) \geq \sin(\frac{\delta}{2})$ for all $t > \delta$ and use Theorem 2.
+\end{proof}
+
+Now comes the theorem we have been giving lemma after lemma for just to be able to prove more easily, \textit{Fejer Theorem};
+
+\begin{theorem}{[Fejer]}
+    Suppose that $f: \mathbb{R} \to \mathbb{R}$ is periodic and integrable on each compact interval.\footnotemark{} \footnotetext{Ask}
+
+        1. If \begin{equation}
+             L = \lim_{h \to 0} \frac{f(x_0 + h) + f(x_0 - h)}{2}
+        \end{equation}
+
+        exists for some $x_0 \in \mathbb{R}$, then $\sigma_Nf(x_0) \to L$ as $N \to \infty$.   \\
+        2. If \(f\) is continuous in some closed interval $I$, then $\sigma_Nf \to f$ uniformly on $I$.
+
+\end{theorem}
 
 \end{document}
