@@ -12,8 +12,9 @@
 \newtheorem{lemma}{Lemma}
 \theoremstyle{example}
 \newtheorem*{example}{Example}
-
-
+\theoremstyle{proofTrial}
+\newtheorem*{proofTrial}{Proof trial}
+\newtheorem{corollary}{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -252,5 +253,154 @@ Now comes the theorem we have been giving lemma after lemma for just to be able 
         2. If \(f\) is continuous in some closed interval $I$, then $\sigma_Nf \to f$ uniformly on $I$.
 
 \end{theorem}
+Before giving the actual proof, I want to give a "wrong path" in the right direction.
+\begin{proofTrial}
+    {As we mentioned above, $K_N$ reminds us $dirac-\delta$ function.}\\
+   { We know that,}
+    \[
+    \int_{-\pi}^{\pi}f(x)\delta(x - x_0)dx = f(x_0) \text{  ,for continuous f.}
+    \]
+    For non-continuous \(f\), we wonder if we can use this idea for $Fejer kernels$, i.e.
+    \[
+    \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx(?) L
+    \]\footnotemark{}
+    \footnotetext{Unfortunately I could not proceed into this approach, see remark "Summability Kernels" below.}
+\end{proofTrial}
+Now, we can dive into the actual proof.
+\begin{proof}
+We start by trying to approximate (as we generally do to show convergence) $|\sigma_N(x_0) - f(x_0)|$. We will, of course, use the lemmas above (otherwise, why give them?). Here we go:
+\begin{align*}
+|\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - f(x_0)\right| \quad\text{(lemma 1)} \\
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0)dt\right| \quad\text{(lemma 2)} \\
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)(f(x_0-t) - f(x_0))dt \right|\\
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) - f(x_0))du \right| \quad\text{(u = -t change and evenness of $K_N$)}\\
+\end{align*}
+Now we add the last two (equal) expressions and divide by 2 to get a term in the form $f(x_0 + h) + f(x_0 - h)$.
+\begin{align*}
+    &= \left|\frac{1}{2\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) + f(x_0 - u) - 2f(x_0))du \right| \\
+    &= \left|\frac{2}{\pi} \int_{0}^{\pi} K_N(u)(\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0))du \right| \quad\text{(evenness of the expression inside)}\\
+\end{align*}
+Now, let us call $\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0)$ as $F(x_0,u)$ for simplicity. since \(f\) is (Darboux) integrable, it is bounded and $M \vcentcolon = \sup_{u \in \mathbb{R}} F(x_0,u)$ exists.
+\[
+\frac{2}{\pi} \int_{\delta}^{\pi} K_N(u)F(x_0,u)du \leq \frac{2M}{\pi} \int_{\delta}^{\pi} K_N(u)du
+\]
+which is smaller than $\epsilon$ for large N (see lemma 2). If we have chosen a small $\delta$, $|F(x_0, u)| \leq \epsilon$ since $L$ exists.
+\[
+\frac{2}{\pi} \int_{0}^{\delta} K_N(u)F(x_0,u)du \leq \frac{2\epsilon}{\pi} \int_{0}^{\delta} K_N(u)du
+\]
+Last integral approaches to 1 as N goes to infinity (lemma 2). Hence, we managed to show that
+\[
+|\sigma_N(x_0) - f(x_0)| \leq \epsilon . C \quad\text{(a constant)}
+\]
+Our choice of $N$s do not depend on $x_0$, hence same arguments show that $\sigma_N \to f$ uniformly (we keep in mind that $I$ is compact, making \(f\) bounded.
+\end{proof}
+
+\begin{corollary}{Uniqueness. \footnotemark{} \footnotetext{In Wade, it is named as "Completeness" but Prof. Gheondea preffered this name}} If $f : \mathbb{R} \to \mathbb{R}$ is continuous and periodic, and $a_k(\mathbb{f}) = b_k(\mathbb{f}) = 0$ for $k \in \mathbb{Z}$, then $f(x) = 0$ for all $x \in \mathbb{R}$.
+\end{corollary}
+\begin{proof}
+    Here $\sigma_Nf(x) = 0$ for all real $x$. By the theorem, it approaches uniformly to \(f\) which makes $f \equiv 0$.
+\end{proof}
+\begin{corollary}
+    Let $f : \mathbb{R} \rightarrow \mathbb{R}$ be continuous and periodic. Then there is a sequence of trigonometric polynomials $T_1, T_2, \ldots$ such that $T_N \rightarrow f$ uniformly on $\mathbb{R}$.
+
+\end{corollary}
+\begin{proof}
+    Set $T_N$ as $\sigma_N$.
+\end{proof}
+This last corollary can be used to prove a very strange theorem in analysis, \textit{Weierstrass Approximation Theorem}.
+
+\begin{theorem}{[Weierstrass Approximation Theorem].} Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
+\end{theorem}
+
+\begin{proof} WLOG take $-a = b = \pi$\\
+    We already learned that given a positive $\epsilon$ there exists a trigonometric polynomial $T_{N_\epsilon}$ such that
+    \[
+    |f - T_{N_\epsilon}|(x) < \epsilon
+    \]
+    Both $\sin(kx)$ and $\cos(kx)$ are analytic functions \footnotemark{}
+    \footnotetext{Meaning they can be written as a power series}. Hence, there exists a classical polynomial $P$ such that
+    \[
+    |T_{N_\epsilon} - P|(x) < \epsilon
+    \]
+    By combining two inequalities (and applying necessary algebra) we get
+    \[
+    |f - P|(x) < \epsilon
+    \]
+\end{proof}
+This theorem shows that (classical and trigonometric) polynomials are dense in the function space $C^{0}[-\infty, \infty]$
+
+
+\begin{remark}
+    Let $E \subset \mathbb{R}$, and suppose that $f, f_k : \mathbb{R} \to \mathbb{R}$ are bounded functions. If $\sum_{k = 0}^{ \infty} f_k$ converges uniformly to $f$ on $E$, then
+
+\[\sigma_N(x) := \sum_{k=0}^{N} (1 - \frac{k}{N+1}) f_k(x)\]
+
+converges to $f(x)$ uniformly on $E$ as $N \to \infty$.
+
+\end{remark}
+\begin{proof}{Idea.} Let $S_k$ be the partial sum of the series  $\sum_{t = 0}^{\infty}f_t$. Then,
+\[
+\sigma_N(x) = \frac{\sum_{k = 0}^{\infty}S_k}{N+1}
+\]
+We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
+
+\end{proof}
+\begin{remark}
+    Let
+    \[
+    S = \frac{a_0}{2} +\sum_{k=1}^{\infty}a_k\cos(kx) + b_k\sin(kx)
+    \]
+    be a trigonometric series and set
+    \[
+    \sigma_N(x) = \frac{a_0}{2} +\sum_{k=1}^{\infty}(1 - \frac{k}{N+1})a_k\cos(kx) + b_k\sin(kx)
+    \]
+    $S$ is the fourier series of $f$, a continuous and periodic function, iff $\sigma_N \to f$ uniformly.
+\end{remark}
+\begin{proof}
+    If $ S = Sf$, then by then by \textit{Fejer theorem}, $\sigma_N = \sigma_Nf \to f$ uniformly.
+    Conversely, assume $\sigma_N \to f$ uniformly. Remember that $Sf$ is determined completely by the coefficients. We prove that $a_k = a_k(f)$. Rest is similar.
+
+    \begin{align*}
+        a_k(f) &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(kx) dx\\
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi} \lim_{N \to \infty}\sigma_N(x) \cos(kx) dx\\
+        &= \lim_{N \to \infty} \frac{1}{\pi} \int_{-\pi}^{\pi} \sigma_N(x) \cos(kx) dx \quad \text{(uniform convergence)}\\
+        &= \lim_{N \to \infty} (1 - \frac{k}{N+1})a_k \\
+        &= a_k
+    \end{align*}
+
+\end{proof}
+\begin{example}
+    Show that
+    \[
+    S = \sin(\sqrt{2}\pi) + \sum_{k=0}^{\infty}\frac{4(-1)^k\sin(\sqrt{2}\pi)}{2-k^2}\cos(kx)
+    \]
+    converges uniformly to $\sqrt{2}\pi\cos(\sqrt{2}\pi)$.
+\end{example}
+\begin{proof}
+    Since this problem is given in \textit{Fourier Series}, we look for solutions in that context. First, let us remind that \textit{"If $\sigma_Nf$ converges to $L$ and if we know $S_Nf$ converges, we can conclude $S_Nf$ converges to $L$."}
+
+    \par Without previous remark, it is a difficult series to deal with, but we are lucky. In light of this, we look for a \textit{continuous $f$}. The series $S$ converges (this can be shown by elementary calculus methods), hence if we can find such an \(f\), we are done with the help of the remind and remark above plus "Fejer theorem". \par
+
+    We are given a hint, \(f\) is probably $\sqrt{2}\pi\cos(\sqrt{2}\pi)$. By that choice, $b_k(f) = 0$ and
+    \begin{align*}
+        a_k(f) &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(kx) dx \\
+               &= \sqrt{2} \int_{-\pi}^{\pi}  \cos(\sqrt{2}\pi) \cos(kx) dx \\
+               &= \frac{4(-1)^k\sin(\sqrt{2}\pi)}{2-k^2} \quad \text{(left as an exercise!)}
+    \end{align*}
+\end{proof}
+
+\begin{remark}{[Summability Kernels]} Let $\phi_N$ be a sequence of real valued, continuous and periodic functions that satisfy
+\begin{align*}
+    \int_{0}^{2\pi} \phi_N = 1 \text{ and } \int_{0}^{2\pi} |\phi_N| < M < \infty \\
+    \intertext{for all $N \in \mathbb{N}$ and }\\
+    \lim_{N \to \infty} \int_{\delta}^{2\pi - \delta} |\phi_N| = 0\\
+    \intertext{for all $2\pi > \delta > 0$. Suppose that $f$ is continuous and periodic on $\mathbb{R}$}\\
+    \lim_{N \to \infty} \int_{0}^{2\pi} f(x - t)\phi_N(t)dt = f(x)\\
+    \intertext{uniformly for all $x$.}
+\end{align*}
+\end{remark}
+
+
+
 
 \end{document}
