@@ -166,10 +166,10 @@
 
 
 \end{frame}
-\begin{comment}
+
     \begin{frame}{Two Kernels}
     \small
-    In general, we will not deal with the original definitions but the equivalent versions of them. Two kernels defined here will make theorems a lot easier to prove.
+    In general, we will not deal with the original definitions but the equivalent versions of them. Two kernels defined here will make theorems a lot easier to prove via equivalences given as convolutions.
     \begin{definition}[Kernels]
         Let $N$ be a nonnegative integer.
 \begin{enumerate}
@@ -192,7 +192,7 @@
     \end{definition}
 
 \end{frame}
-\end{comment}
+
 
 
 
@@ -240,6 +240,37 @@ Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightar
     \end{theorem}
 
 \end{frame}
+\begin{frame}{Speed of convergence to 0}
+    Depending of the properties of a given function, we can estimate how fast the coefficients will converge to 0.
+    \begin{theorem}
+        Given a function \( f : \mathbb{R} \to \mathbb{R} \) and \( j \in \mathbb{N} \). If \( f^{(j)} \) exists and is integrable on the interval \([-\pi, \pi]\) and \( f^{(l)} \) is periodic for each \( 0 \leq l < j \), then
+\[
+\lim_{{k \to \infty}}k^ja_k(f)  = \lim_{{k \to \infty}} k^jb_k(f) = 0.
+\]
+
+    \end{theorem}
+\end{frame}
+
+
+
+\section{Next}
+\begin{frame}{To be continued...}
+    Until the end of the semester, we plan to study:
+    \begin{enumerate}
+        \item Convergence of Fourier Series
+        \begin{itemize}
+            \item Tauber theorems (and Hardy's theorem as Tauber type)
+            \item Dirichlet - Jordan theorem
+        \end{itemize}
+        \item Uniqueness
+        \begin{itemize}
+            \item second symmetric derivative
+            \item Riemann \& Cantor theorems
+            \item Contor-Lebesque lemma
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+
 
 \section{Summary}
 \begin{frame}{Summary}
@@ -251,8 +282,11 @@ Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightar
         \item Cesaro summability of Fourier Series and semi-convergence
         \item Behaviour of Fourier coefficients
         \item Parseval's identity
+        \item What is next?
     \end{enumerate}
 \end{frame}
+
+
 
 \section{References}
 
