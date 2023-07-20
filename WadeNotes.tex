@@ -51,7 +51,7 @@
 \begin{theorem}[Fourier]
     If a trigonometric series
     \[
-    S := a_0  / 2 +  \sum_{k = 1}^{N} (a_k  \cos(kx) + b_k  \sin(kx))
+    S := a_0  / 2 +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
     \]
    converges uniformly to a function \(f\), the $S$ is the Fourier series of \(f\), i.e. $S(f)$.
 \end{theorem}
@@ -400,6 +400,146 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
 \end{align*}
 \end{remark}
 
+\section{Growth of Fourier Coefficients}
+
+In previous section, we have seen that (in the light of Fejer Theorem) a continuous function is completely determined by its Fourier coefficients\footnotemark{}\footnotetext{Coefficients determine $\sigma_Nf$ and it converges to $f$}. In this section, we investigate the behaviour of these coefficients, specifically how fast they approach to $0$. \paragraph{}
+    Our deep aim is to determine when $Sf$ converges to $f$. In that case, coefficients converge to 0. Yet, we are not able to answer the general convergence question, but we will instead catch a hope, called \textbf{Riemann-Lebesque Lemma}, stating $a_k(f)$ and $b_k(f)$ have to converge to zero. \paragraph{}
+    To prove this lemma we use \textbf{Bessel's inequality}.
+
+\begin{theorem}{[Bessel's Inequality]}
+
+Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}{\infty}|a_k(f)|^2 + |b_k(f)|^2$ converges. Moreover, the inequality below holds:
+\begin{equation}
+    \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx \geq \frac{a_0^2}{2} + \sum_{n=1}^{\infty} \left(a_n^2 + b_n^2\right).
+\end{equation}
+\end{theorem}
+ To prove this theorem, we need a lemma.
+ \begin{lemma}
+     If $f: \mathbb{R} \to \mathbb{R}$ is integrable on $[-\pi, \pi]$, then,
+     \begin{equation}
+     \begin{aligned}
+         \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx
+         &= \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 +
+         b_n^2\right)\\
+         &=  \frac{1}{\pi} \int_{-\pi}^{\pi} |S_Nf(x)|^2  dx
+     \end{aligned}
+     \end{equation}
+ \end{lemma}
+ \begin{proof}[Proof of lemma]
+ First equality is coming from the definition of Fourier coefficients, the second one is the job of orthogonalities we gave at the very beginning.
+ \[
+ \begin{aligned}
+     \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx
+         &= \frac{1}{\pi} \int_{-\pi}^{\pi} (\frac{a_0(f)f}{2} + \sum_{n=1}^{N} \left(a_n(f)f +
+         b_n(f)f\right))dx \\
+         &= \frac{1}{\pi} \int_{-\pi}^{\pi}\frac{a_0(f)f}{2} + \sum_{n=1}^{N} \frac{1}{\pi} \int_{-\pi}^{\pi} \left(a_n(f)f +
+         b_n(f)f\right))dx \\
+         &= \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 +
+         b_n^2\right)\\
+ \end{aligned}
+ \]
+ Second equality follows from similar expansions and using orthogonalities.
+
+ \end{proof}
+    Now we can prove the theorem. Altough proving the inequality also proves the convergence, it is a genious proof. We shall give a more "natural" proof for convergence.
+    \begin{proof}
+        Let us first prove the convergence. Let $M$ be the $\frac{\sup(f)}{\pi}$
+        \[
+        \begin{aligned}
+            (\frac{a_0(f)f}{2} + \sum_{n=1}^{N} \left(a_n(f)f +
+         b_n(f)f\right)) \\
+         &=  \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx \\
+         &\leq M \int_{-\pi}^{\pi}S_Nf(x) \, dx \\
+         &\leq M \int_{-\pi}^{\pi}(\frac{1}{\pi} \int_{-\pi}^{\pi}f(x-t)D_N(t)dt) \, dx \\
+         &\leq M^2  \int_{-\pi}^{\pi}(\frac{1}{\pi} \int_{-\pi}^{\pi}D_N(t)dt) \, dx \\
+         &= M^2  \int_{-\pi}^{\pi}(1) \, dx \\
+         &= 2\pi M^2 \in \mathbb{R}
+        \end{aligned}
+        \]
+        Hence, for each $N$, we found an upper bound. Since the terms are nn-negative, series converges.
+
+        Now we prove the inequality.
+        We fix an $N$ and use the lemma above,
+        \[
+        \begin{aligned}
+            0
+            &\leq \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)-S_Nf(x)| \, dx \\
+            &= \frac{1}{\pi} \int_{-\pi}^{\pi}|f|^2 - \left( \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 + b_n^2\right) \right) \quad \text{three equivalences in the lemma}
+        \end{aligned}
+        \]
+        Since $N$ is arbitrary, we can take the limit and we are done.
+    \end{proof}
+
+\begin{corollary}[Riemann-Lebesque Lemma]
+    \[
+    \lim_{N \to \infty}a_k(f) = \lim_{N \to \infty}b_k(f) = 0.
+    \]
+\end{corollary}
+
+Our next major result is the \textit{Parseval's identity}, when $f$ is continuous and periodic the \textit{Bessel's inequality} actually becomes an equality. To prove that important theorem, we first give a lemma stating $S_Nf$s are the best approximation for $f$ in the following unusual sense\footnotemark{}.
+\footnotetext{In measure theory, this lemma tells they are equal in the function space $L^2$}
+
+\begin{lemma}
+    Given any trigonometric polynomial $T_N$,
+    \[
+    \frac{c_0}{2} + \sum_{n=1}^{N} (c_n + d_n)
+    \]
+    The following inequality holds where $f$ is periodic and integrable:
+    \[
+    \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - S_Nf\right|^2 \leq \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - T_N\right|^2
+    \]
+\end{lemma}
+\begin{proof}
+    We will use (6).
+    \[
+    \begin{aligned}
+        \int_{-\pi}^{\pi}\left| f - T_N\right|^2
+        &= \int_{-\pi}^{\pi}\left| f - S_Nf + S_Nf - T_N\right|^2\\
+        &=  \int_{-\pi}^{\pi} \left| f - S_Nf\right|^2
+        + 2 \int_{-\pi}^{\pi}  (f - S_Nf)(S_Nf - T_N)
+        + \int_{-\pi}^{\pi} \left| T_N - S_Nf\right|^2 \\
+        &\geq \int_{-\pi}^{\pi} \left| f - S_Nf\right|^2
+        + 2 \int_{-\pi}^{\pi}  (f - S_Nf)(S_Nf - T_N)  \quad(\ast)
+    \end{aligned}
+    \]
+    We claim that the last term is zero. Indeed,
+    \[
+    \begin{aligned}
+        \frac{1}{\pi}\int_{-\pi}^{\pi}  (f - S_Nf)(S_Nf - T_N)
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi}  (fS_Nf - S_Nf^2) + \frac{1}{\pi} \int_{-\pi}^{\pi} (-fT_N + S_NfT_N) \quad \text{(first term is zero, (6))}\\
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi} -fT_N + \frac{1}{\pi} \int_{-\pi}^{\pi}  S_NfT_N\\
+        &= -\left( \frac{a_0(f)c_0}{2} + \sum_{j=1}{N}a_j(f)c_j + b_j(f)d_j\right) \\
+        &+ \left( \frac{a_0(f)c_0}{2} + \sum_{j=1}{N}a_j(f)c_j + b_j(f)d_j\right) = 0
+    \end{aligned}
+    \]
+    Hence, by $(\ast)$ proof is done.
+\end{proof}
+We can now proceed to our next major result, a famous identity by Parseval.
+
+\begin{theorem}[Parseval's identity]\footnotemark{}
+    If $f$ is continuous and periodic, then,
+        \begin{equation}
+            \frac{a_0^2}{2} + \sum_{n=1}^{\infty} \left(a_n^2 + b_n^2\right) = \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx.
+        \end{equation}
+
+\end{theorem}
+\footnotetext{This theorem is used to prove one of the most beautiful formulas in mathematics, namely \textit{Bassel problem}. If we set $f(x) = x$ (and restrict it to be periodic) then we get the famous equality: $\sum_{k=1}^{\infty}\frac{1}{k^2} = \frac{\pi^2}{6}$.}
+\begin{proof}
+    We use \textit{Fejer theorem} and interchangibility of limit and integral in the case of uniform convergence.
+    \[
+    \begin{aligned}
+        \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi} f\lim_{N \to \infty}\sigma_N \, dx\\
+        &= \lim_{N \to \infty}\frac{1}{\pi} \int_{-\pi}^{\pi} f\sigma_N \, dx\\
+        &= \lim_{N \to \infty}\frac{1}{\pi} \int_{-\pi}^{\pi} f\left( \sum_{k=0}^{N} (1 - \frac{k}{N+1}) a_k(f)\cos(kx) + b_k(f)\sin(kx) \right)\, dx\\
+        &= \lim_{N \to \infty}\frac{1}{\pi} \int_{-\pi}^{\pi} \left( \sum_{k=0}^{N} (1 - \frac{k}{N+1}) fa_k(f)\cos(kx) + fb_k(f)\sin(kx) \right)\, dx\\
+        &= \lim_{N \to \infty}  \sum_{k=0}^{N} \left( \frac{1}{\pi} \int_{-\pi}^{\pi}(1 - \frac{k}{N+1}) fa_k(f)\cos(kx) + fb_k(f)\sin(kx)\, dx \right)\\
+        &= \lim_{N \to \infty}  \sum_{k=0}^{N} \left((1 - \frac{k}{N+1}) a_k(f)^2 + b_k(f)^2 \right)\\
+        &=   \sum_{k=0}^{N} \lim_{N \to \infty}\left((1 - \frac{k}{N+1}) a_k(f)^2 + b_k(f)^2 \right)\\\
+        &=   \sum_{k=0}^{N}  a_k(f)^2 + b_k(f)^2 \\
+    \end{aligned}
+    \]
+\end{proof}
 
 
 
