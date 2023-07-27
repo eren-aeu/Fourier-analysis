@@ -541,6 +541,16 @@ We can now proceed to our next major result, a famous identity by Parseval.
     \]
 \end{proof}
 
+The Riemann-Lebesgue Lemma can be improved if f is smooth and periodic. In
+fact, the following result shows that the smoother f is, the more rapidly its Fourier
+coefficients converge to zero.
 
+\begin{theorem}
+    Let $f$ be a real valued function and $j \in \mathbb{N}$. If $f^{(j)}$ exists and integrable on $[-\pi,\pi]$ and $f^{(l)}$ is periodic for each $0 \leq l < j$, then
+    \begin{equation}
+        \lim_{k \to \infty} k^j a_k(f) = \lim_{k \to \infty} k^j b_k(f) = 0
+    \end{equation}
+
+\end{theorem}
 
 \end{document}
