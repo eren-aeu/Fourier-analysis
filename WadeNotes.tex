@@ -1,30 +1,102 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+% Senior Project Student: Adem eren uyanık
+% Department of Mathematics, Bilkent University
+% Aurelian Gheondea, Senior Project Coordinator
 
-\title{Fourier analysis}
-\author{eren}
-\date{July 2023}
-\usepackage{amsmath,amssymb, amsthm, mathtools}
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\theoremstyle{lemma}
-\newtheorem{lemma}{Lemma}
-\theoremstyle{example}
-\newtheorem*{example}{Example}
-\theoremstyle{proofTrial}
-\newtheorem*{proofTrial}{Proof trial}
-\newtheorem{corollary}{Corollary}
-
+\documentclass[12pt]{amsart}
+\usepackage{amsmath,amssymb, mathtools}
+\usepackage{amsthm}
+% The package can be used temporarily only to show the cross-reference labels
+%\usepackage{showkeys}
+% This paragraph resets the sizes of the printed area of the page
+\hoffset -1.5cm
+\voffset -1cm
+\textwidth 15.5truecm
+\textheight 22.5truecm
+% This paragraph defines the macros for theorems and the like
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+% This paragraph defines the macros for definitions and the like
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+% The following paragraph writes the equation numbers with two counters,
+% the first is the section number and the second resets within the section.
+\makeatletter
+\@addtoreset{equation}{section}
+\makeatother
+\renewcommand\theequation{\arabic{section}.\arabic{equation}}
+% The next paragraph defines macros for special roman letters to be used
+\newcommand{\CC}{{\mathbb C}} % the set of complex numbers
+\newcommand{\NN}{{\mathbb N}} % the set of natural numbers
+\newcommand{\QQ}{{\mathbb Q}} % the set of rational numbers
+\newcommand{\ZZ}{{\mathbb Z}} % the set of integer numbers
+\newcommand{\DD}{{\mathbb D}} % the unit disk
+\newcommand{\RR}{{\mathbb R}} % the set of real numbers
+\newcommand{\TT}{{\mathbb T}} % the unit circle (the one dimensional torus)
+% The next paragraph defines macros for caligraphic letters
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\cG}{{\mathcal G}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cK}{{\mathcal K}}
+\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cQ}{{\mathcal Q}}
+\newcommand{\cR}{{\mathcal R}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cW}{{\mathcal W}}
+\newcommand{\cZ}{{\mathcal Z}}
+% The next paragraph defines special macros
+\newcommand{\iac}{\mathrm{i}} % the imaginary i
+\newcommand{\de}{\operatorname{d}} % the differential
+\newcommand{\deriv}{\operatorname{D}}
+\providecommand{\AMS}{$\mathcal{A}$\kern-.1667em%
+\lower.25em\hbox{$\mathcal{M}$}\kern-.125em$\mathcal{S}$}
+% Use of macros should confine the general rules for AMS-LaTeX. It is
+% recommended to use \newcommand and \renewcommand instead of the TeX
+% primitive \def
+% Next is an example of macro I designed for numbering items that are
+% different than the available ``itemize, description'' environments.
+% You can use it if you want!
+\newcommand{\nr}[1]{\vspace{0.1ex}\noindent\hspace*{12mm}\llap{\textup{(#1)}}}
+% Topmatter produces the title, author, abstract, etc.
 \begin{document}
 
+\title[Classical Fourier Series]{Classical Fourier Series}
+
+
+\author{A. Eren Uyanık}
+
+\address{Department of Mathematics, Bilkent University, 06800 Bilkent, Ankara,
+  Turkey}
+\email{eren.uyanik@ug.bilkent.edu.tr}
+
+\begin{abstract} Abstract will be added
+\end{abstract}
 \maketitle
 
-\section{What is Fourier Analysis?}
-\section{Why Fourier Analysis?}
+% Body of the project
+
+\section*{Overview} % The * is needed if you do not want this section
+% numbered; otherwise remove the * and this will be numbered by 1.
+
+Some history and the overview of subject  will be given here. Also where to add the advisor?
+
 
 \section{Introduction}
 \begin{definition}[Fourier series]\footnotemark{}
@@ -193,7 +265,7 @@ Continuous functions are known to be "well-behaving" functions in many contexts 
 \begin{definition}
     A series $\sum_{k=0}^{\infty} a_k$ with partial sums $S_N$ is said to be \textit{Cesaro summable} to $L$ if \textit{Cesaro means}
     \[
-    \sigma_N \vcentcolon =  \frac{S_0 + S_1 + \dots + S_N }{N+1}
+    \sigma_N \coloneqq   \frac{S_0 + S_1 + \dots + S_N }{N+1}
     \]
     converges to $L$ as $N \longrightarrow \infty$.
 \end{definition}
@@ -215,7 +287,7 @@ We give here a lemma which will make $\sigma_N f$ easy to deal with (especially 
     \footnotetext{This may remind you the convolution and you are right!}
 \end{lemma}
 
-\begin{proof}
+\begin{proof} As standart, we begin with the definition and equal formulations of the expression:
     \begin{align*}
     \sigma_Nf(x) &= \frac{S_0f + S_1f + \dots + S_Nf}{N+1}\\
                  &= \frac{\sum_{k = 0}^{N}S_kf}{N+1} \\
@@ -229,7 +301,7 @@ To go further, we need to investigate \textit{Fejer kernel}s more. As will be se
 \begin{lemma}
     For each natural number $N$,
     \begin{align}
-        K_N(t) &\geq 0 for all t \in \mathbb{R},\\
+        K_N(t) &\geq 0 \text{ for all } t \in \mathbb{R},\\
         \intertext{and}
         &\frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)dt = 1,\\
         \intertext{for each  $\pi > \delta > 0$,}
@@ -242,7 +314,7 @@ To go further, we need to investigate \textit{Fejer kernel}s more. As will be se
 
 Now comes the theorem we have been giving lemma after lemma for just to be able to prove more easily, \textit{Fejer Theorem};
 
-\begin{theorem}{[Fejer]}
+\begin{theorem}[Fejer]
     Suppose that $f: \mathbb{R} \to \mathbb{R}$ is periodic and integrable on each compact interval.\footnotemark{} \footnotetext{Ask}
 
         1. If \begin{equation}
@@ -254,7 +326,7 @@ Now comes the theorem we have been giving lemma after lemma for just to be able 
 
 \end{theorem}
 Before giving the actual proof, I want to give a "wrong path" in the right direction.
-\begin{proofTrial}
+\begin{proof}[Proof trial]
     {As we mentioned above, $K_N$ reminds us $dirac-\delta$ function.}\\
    { We know that,}
     \[
@@ -265,7 +337,7 @@ Before giving the actual proof, I want to give a "wrong path" in the right direc
     \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx(?) L
     \]\footnotemark{}
     \footnotetext{Unfortunately I could not proceed into this approach, see remark "Summability Kernels" below.}
-\end{proofTrial}
+\end{proof}
 Now, we can dive into the actual proof.
 \begin{proof}
 We start by trying to approximate (as we generally do to show convergence) $|\sigma_N(x_0) - f(x_0)|$. We will, of course, use the lemmas above (otherwise, why give them?). Here we go:
@@ -309,7 +381,7 @@ Our choice of $N$s do not depend on $x_0$, hence same arguments show that $\sigm
 \end{proof}
 This last corollary can be used to prove a very strange theorem in analysis, \textit{Weierstrass Approximation Theorem}.
 
-\begin{theorem}{[Weierstrass Approximation Theorem].} Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
+\begin{theorem}[Weierstrass Approximation Theorem] Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
 \end{theorem}
 
 \begin{proof} WLOG take $-a = b = \pi$\\
@@ -389,7 +461,7 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
     \end{align*}
 \end{proof}
 
-\begin{remark}{[Summability Kernels]} Let $\phi_N$ be a sequence of real valued, continuous and periodic functions that satisfy
+\begin{remark}[Summability Kernels] Let $\phi_N$ be a sequence of real valued, continuous and periodic functions that satisfy
 \begin{align*}
     \int_{0}^{2\pi} \phi_N = 1 \text{ and } \int_{0}^{2\pi} |\phi_N| < M < \infty \\
     \intertext{for all $N \in \mathbb{N}$ and }\\
@@ -406,7 +478,7 @@ In previous section, we have seen that (in the light of Fejer Theorem) a continu
     Our deep aim is to determine when $Sf$ converges to $f$. In that case, coefficients converge to 0. Yet, we are not able to answer the general convergence question, but we will instead catch a hope, called \textbf{Riemann-Lebesque Lemma}, stating $a_k(f)$ and $b_k(f)$ have to converge to zero. \paragraph{}
     To prove this lemma we use \textbf{Bessel's inequality}.
 
-\begin{theorem}{[Bessel's Inequality]}
+\begin{theorem}[Bessel's Inequality]
 
 Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}{\infty}|a_k(f)|^2 + |b_k(f)|^2$ converges. Moreover, the inequality below holds:
 \begin{equation}
@@ -546,11 +618,22 @@ fact, the following result shows that the smoother f is, the more rapidly its Fo
 coefficients converge to zero.
 
 \begin{theorem}
+
     Let $f$ be a real valued function and $j \in \mathbb{N}$. If $f^{(j)}$ exists and integrable on $[-\pi,\pi]$ and $f^{(l)}$ is periodic for each $0 \leq l < j$, then
     \begin{equation}
         \lim_{k \to \infty} k^j a_k(f) = \lim_{k \to \infty} k^j b_k(f) = 0
     \end{equation}
 
 \end{theorem}
+
+This theorem does not only tell us how fast the coefficients but also gives an important result for the convergence of \textit{second degree good} (class $C^2$-periodic) functions. But as we are in a mathematics document, let's give first the proof.
+
+\begin{proof}
+
+\end{proof}
+
+
+
+
 
 \end{document}
