@@ -489,12 +489,12 @@ converges to $f(x)$ uniformly on $E$ as $N \to \infty$.
 \end{remark}
 
 
-\begin{proof}{Idea.} Let $S_k$ be the partial sum of the series  $\sum_{t = 0}^{\infty}f_t$. Then,
+ We give the core idea to prove this remark. Let $S_k$ be the partial sum of the series  $\sum_{t = 0}^{\infty}f_t$. Then,
 \[
 \sigma_N(x) = \frac{\sum_{k = 0}^{\infty}S_k}{N+1}
 \]
 We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
-\end{proof}
+
 
 
 \begin{remark}
@@ -510,7 +510,7 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
 \end{remark}
 
 
-\begin{proof}
+Let us give an argument to this fact.
     If $ S = Sf$, then by then by \textit{Fejer theorem}, $\sigma_N = \sigma_Nf \to f$ uniformly.
     Conversely, assume $\sigma_N \to f$ uniformly. Remember that $Sf$ is determined completely by the coefficients. We prove that $a_k = a_k(f)$. Rest is similar.
 
@@ -521,7 +521,7 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
         &= \lim_{N \to \infty} (1 - \frac{k}{N+1})a_k \\
         &= a_k
     \end{align*}
-\end{proof}
+
 
 
 \begin{example}
@@ -626,7 +626,7 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
          &= 2\pi M^2 \in \mathbb{R}
         \end{aligned}
         \]
-        Hence, for each $N$, we found an upper bound. Since the terms are nn-negative, series converges.
+        Hence, for each $N$, we found an upper bound. Since the terms are non-negative, series converges.
 
         Now we prove the inequality.
         We fix an $N$ and use the lemma above,
@@ -639,6 +639,9 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
         \]
         Since $N$ is arbitrary, we can take the limit and we are done.
     \end{proof}
+
+
+We can state now the famous \emph{Riemann-Lebesque Lemma} as a corollary of the series $\sum_{n=1}^{\infty} \left(a_n^2(f) + b_n^2(f)\right)$ being convergent.
 
 
 \begin{corollary}[Riemann-Lebesque Lemma]
@@ -863,20 +866,15 @@ Now we can link this to Fourier series.
 Proof immediately follows from \ref{bounded var. coefficient grow} with the choice $\phi = \cos(kx)$. Now, we have concluded our discussion of bounded variation for this section. Before jumping into the next section, we will see some important remarks which are either corollaries of the results above or equivalent versions of them.
 
 
-\begin{remark}\label{alternative riemann-lebesque lemma}
-    If $f$ is integrable on $[-\pi, \pi]$ and $\alpha \in \RR$, then \footnotemark{*?*}
-
-
-     \footnotetext{What to do when k is real number?, should I state k is natural?}
-
-
+\begin{theorem}\label{alternative riemann-lebesque lemma}
+    If $f$ is integrable on $[-\pi, \pi]$, $\alpha \in \RR$ and $k \in \NN$ then
     \[
     \lim_{k \to \infty}\int_{-\pi}^{\pi}f(x)\cos((k+\alpha)x) dx = 0
     \]
-\end{remark}
+\end{theorem}
 
 
-This remark tells us to use \emph{Riemann - Lebesque lemma}. But we will also give an independent proof to see that this theorem is actually equvalent to the lemma.
+This theorem tells us to use \emph{Riemann - Lebesque lemma}. But we will also give an independent proof to see that this theorem is actually equvalent to the lemma.
 
 
 \begin{proof}[Proof by \textit{Riemann - Lebesque lemma}]
@@ -930,19 +928,13 @@ The following remark shows a useful application of Fourier series to approximate
 
 
 
-\begin{proof}
-    By (\ref{C^2 converges}), $Sf$ converges absolutely and uniformly. A theorem\footnotemark{}
+    We can convince ourselves as such: By the fact (\ref{C^2 converges}), $Sf$ converges absolutely and uniformly. A theorem\footnotemark{}
 
     \footnotetext{Check the related parts of \cite{Wade} for more information. }
 
-    form the branch \emph{series of function} gives us the necessary argument to claim that equality holds for every bounded $E \subset \RR$.\footnotemark{*?*}
+    form the branch \emph{series of function} gives us the necessary argument to claim that equality holds for every bounded $E \subset \RR$.
 
 
-    \footnotetext{to be asked}
-
-
-
-\end{proof}
 
 
 Next remark can be used to give a different proof \emph{Riemann-Lebesque lemma} for continuous functions.
@@ -1072,7 +1064,7 @@ The following theorem is one of the deepest \emph{Tauberian type} results.
 
 We are now in a position to answer the big \emph{Convergence Question.}
 
-\begin{theorem}[Dirichlet - Jordan]
+\begin{theorem}[Dirichlet - Jordan]\label{Dirichlet - Jordan}
     If a real valued function $f$ is periodic of bounded variation on $[-\pi,\pi]$, then
     \[
     \lim_{n \to \infty}S_nf(x) = \frac{f(x+) + f(x-)}{2}
@@ -1096,6 +1088,39 @@ We are now in a position to answer the big \emph{Convergence Question.}
 
 
 
+\begin{remark}
+    Suppose that $f$ is continuous and of bounded variations on $[-\pi,\pi]$. Then $S_Nf \to f$ pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
+\end{remark}\footnotemark{*?*}
+
+
+\footnotetext{it is given in the Exercises part in 4th section. But accordding to \ref{Dirichlet - Jordan} $S_Nf \to f$ uniformly, not just pointwise. Am I missing something? (it doesnt say $f$ is periodic in the remark, that might be the cause but how?)}
+
+
+\begin{example}
+    \begin{enumerate}
+        \item[(a)] Prove that
+        \[
+        x = 2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\sin(kx)
+        \]
+        pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
+
+
+        \item[(b)] Prove that
+        \[
+        |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum_{k=1}^{\infty}\frac{\cos(2k-1)x}{(2k-1)^2}
+        \]
+        uniformly on $[-\pi,\pi]$.
+
+        \item[(c)] Find a value for
+        \[
+        \sum_{k=1}^{\infty}\frac{1}{(2k-1)^2}
+        \]
+    \end{enumerate}
+\end{example}
+
+\section{The End}
+
+some text to summarize the report and give the necessary thanks.
 
 
 
