@@ -4,7 +4,8 @@
 
 \documentclass[12pt]{amsart}
 \usepackage{amsmath,amssymb, mathtools}
-\usepackage{amsthm}
+\usepackage{amsthm, tikz-cd}
+
 % The package can be used temporarily only to show the cross-reference labels
 %\usepackage{showkeys}
 % This paragraph resets the sizes of the printed area of the page
@@ -88,7 +89,7 @@
 
 \begin{abstract}
 
-In this report, we will first define trigonometric series and by means of them Fourier series. Then we will seek for an answer to a major question: "When does the Fourier series of a function converge to that function?" Throughout this journey we will encounter some of the major results in analysis such as \emph{Fejer theorem, Riemann - Lebesque lemma, Parseval's identity, Tauberian type theorems} and \emph{Dirichlet - Jordan theorem}.
+In this report, we will first define trigonometric series and by means of them, Fourier series. Then we will seek for an answer to a major question: "When does the Fourier series of a function converge to that function?" Throughout this journey we will encounter some of the major results in analysis such as \emph{Fejer theorem, Riemann - Lebesque lemma, Parseval's identity, Tauberian type theorems} and \emph{Dirichlet - Jordan theorem}.
 \end{abstract}
 \maketitle
 
@@ -97,10 +98,32 @@ In this report, we will first define trigonometric series and by means of them F
 \section*{Overview} % The * is needed if you do not want this section
 % numbered; otherwise remove the * and this will be numbered by 1.
 
-Some history and the overview of subject  will be given here. Also where to add the advisor?
 
-\textbf{Important Note:} These notes are taken by reading \cite{Wade} and most of the proofs are taken from that book (and just a little of them are mine). Therefore, we do not give citation to \cite{Wade} if there is no other reference.
 
+\footnotemark{*?*}\footnotetext{Where to state the advisor?}
+
+
+Describing mathematical analysis is hard. But it is enough to define it as \emph{study of real-valued functions} \cite{History} for the purposes of this report. Our area of interest, \emph{Fourier series}, is a major branch of analysis. Before starting the mathematical investigation, I would like to mention a little bit of history and motivation to study it before. 
+
+
+\emph{Fourier analysis} is an umbrella term capturing \emph{Fourier series, transforms} and methods derived from these two. As the names suggest, the founder of this branch is accepted as \emph{Joseph Fourier}. I won't dive into history much, but I would like to mention the problem giving birth to these studies and contributions of it to mathematics.
+
+
+Fourier was trying to understand the mechanics of heat transfer. Heat equation is a second order partial differential equation derived from the heat transfer on a metal rod. Some mathematicians were already aware that series of trigonometric functions makes it easy to find a solution. Fourier inherited this knowledge and obtained the fundamental solution to heat equation via the "Fourier transform" \cite{History}.
+
+
+Fourier was not a big fan of \emph{mathematical rigor} and did not deal much with the "convergence and uniqueness" questions which I will state in the next section. The investigation of Fourier series by other mathematicians gave rise to fundamental concepts of modern analysis such as "uniform convergence", "absolute convergence", "Riemann and Lebesque integrals", definition of an arbitrary function and also a complete branch of mathematics called \emph{Set theory} which is considered to be foundation of all mathematics \cite{History}.
+
+
+
+The history itself is quite motivating but also we have some "outsider" motivations as applications to other areas. With the most famous one being \emph{signal analysis}, I have already stated the original application: transformation of heat. We can add some modern applications as well: data compression, image processing, quantum mechanics etc.
+
+
+We can also read Fourier series as an alternative approach to "classify" functions similar to \emph{power series}. Unfortunately, like the power series, some "nice" functions fail to have "convergent" Fourier series. I will not dive to that discussion though it is a nice way of interpreting the story.
+
+Lastly, I want to thank Prof. Aurelian Gheondea for his helps and advisorship to this project.
+
+\textbf{Important Note:} These notes are taken while reading \cite{Wade} and most of the proofs are taken from that book (and just a little of them are mine). Therefore, I do not give citation to \cite{Wade} if there is no other reference to cause confusion.
 
 \section{Introduction}
 
@@ -108,7 +131,11 @@ Some history and the overview of subject  will be given here. Also where to add 
 \begin{definition}[Fourier series]\footnotemark{}
 
 
-\footnotetext{Although I do not like the "devil's triangle", definition + theorem + proof, for a fast introduction I hope it is okay.}
+
+\footnotetext{Although I do not like the "devil's triangle", definition + theorem + proof,for a fast introduction I hope it is okay.}
+
+
+
     Let \(f\) be an integrable function on [$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
     \[
     S(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
@@ -122,10 +149,10 @@ Some history and the overview of subject  will be given here. Also where to add 
     where the coefficients $a_k(f)$ and $b_k(f)$ are defined as
 
     \[
-    a_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx
+    a_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx
     \]
     \[
-    b_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx
+    b_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx
     \]
 \end{definition}
 
@@ -133,7 +160,7 @@ Some history and the overview of subject  will be given here. Also where to add 
 \begin{theorem}[Fourier]
     If a trigonometric series
     \[
-    S := a_0  / 2 +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
+    S := \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
     \]
    converges uniformly to a function \(f\), the $S$ is the Fourier series of \(f\), i.e. $S(f)$.
 \end{theorem}
@@ -161,8 +188,8 @@ Some history and the overview of subject  will be given here. Also where to add 
 
 
 \begin{proof}[Proof idea]
-    If we multiply each side with $\cos(kx)$ and integrate, all the terms except the $a_k \cos(kx)$ will disappear. From here $a_k = a_k(f)$ follows easily. \hfill
-    \indent Notice the necessity of having "uniform" convergence. In order to be able to use the power of orthogonality, we should "distribute" the integral to each term of the series which can only be done under the assumption of uniform convergence.
+    We will use the orthogonalities given above. If we multiply each side with $\cos(kx)$ and integrate, all the terms except the $a_k \cos(kx)$ will disappear. From here $a_k = a_k(f)$ follows easily. \par
+     Notice the necessity of having "uniform" convergence. In order to be able to use the power of orthogonality, we should "distribute" the integral to each term of the series which can only be done under the assumption of uniform convergence.
 \end{proof}
 
 
@@ -174,7 +201,7 @@ Some history and the overview of subject  will be given here. Also where to add 
 \textbf{Uniqueness Question.} If a trigonometric series \( S \) converges to some function \( f \) integrable on \( [-\pi, \pi] \), is S the Fourier series of \(f\)?
 
 
-Uniqueness question is answered if the convergence is uniform. We will try to answer these two fundemental questions in the next sections. Now comes the two important definitions which will play an important role in the next chapter.\footnotemark{}
+Uniqueness question is answered if the convergence is uniform. We will try to answer only the first questions in the next sections. Now comes the two important definitions which will play an important role in the next chapter.\footnotemark{}
 
 
 \footnotetext{You may say "Then why given here?" You are right.}
@@ -182,7 +209,7 @@ Uniqueness question is answered if the convergence is uniform. We will try to an
 
 \textbf{Definition.} Let $N$ be a nonnegative integer.
 \begin{enumerate}
-  \item[(i)] The Dirichlet kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \item[(i)] The Dirichlet kernel of order $N$ is the function defined for each $x \in \mathbb{R}$, by
   \[
   D_N(x) = \begin{cases}
             \frac{1}{2} & \text{if } N = 0, \\
@@ -190,7 +217,7 @@ Uniqueness question is answered if the convergence is uniform. We will try to an
            \end{cases}
   \]
 
-  \item[(ii)] The Fejer kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \item[(ii)] The Fejer kernel of order $N$ is the function defined for each $x \in \mathbb{R}$, by
   \[
   K_N(x) = \begin{cases}
             \frac{1}{2} & \text{if } N = 0, \\
@@ -209,7 +236,7 @@ for all $x \in \mathbb{R}$
 \end{remark}
 
 
-\begin{theorem}
+\begin{theorem}\label{non-series forms of kernels}
     If $x$ cannot be written in the form $2k\pi$ for any $k \in \mathbb{Z}$, then the following equalities hold
 
     \[
@@ -221,7 +248,7 @@ for all $x \in \mathbb{R}$
 \end{theorem}
 
 
-\begin{proof}[Proof idea] We try to express  $D_N(x)\sin(\frac{x}{2}$ in a different form. Here we remember (after a while of course) the forgotten high school formula,
+\begin{proof}[Proof idea] We try to express  $D_N(x)\sin(\frac{x}{2})$ in a different form. Here we remember (after a while of course) the forgotten high school formula,
 \[
 \cos(\alpha)\sin(\beta) = \sin(\alpha + \beta) - \sin(\alpha - \beta)
 \]
@@ -285,7 +312,7 @@ for all $x \in \mathbb{R}$
 \section{Summability of Fourier Series}
 
 
-Continuous functions are known to be "well-behaving" functions in many contexts for many mathematicians. But when it comes to Fourier analysis, the basic (and basis) "Convergence question" becomes very difficult to answer even for continuous functions, of course better than not-continuous ones. Here we replace "convergence of functions" with a simpler kind of "convergence", being summable, and show that Fourier series of any continuous periodic function \(f\) is uniformly summable to \(f\).
+Continuous functions are known to be "well-behaving" functions in many contexts for many mathematicians. But when it comes to Fourier analysis, the basic (and basis) "Convergence question" becomes very difficult to answer even for continuous functions. Here we replace "convergence of functions" with a simpler kind of "convergence", being summable, and show that Fourier series of any continuous periodic function \(f\) is uniformly summable to \(f\).
 
 
 \begin{definition}
@@ -297,7 +324,20 @@ Continuous functions are known to be "well-behaving" functions in many contexts 
 \end{definition}
 
 
-Following remarks shows that summability is a generalisation of convergence.
+\begin{definition}[Notation]\label{notation}
+    Throughout the report, given a series $\sum_{k=1}^{\infty}a_k$, I will use the symbol $S_N$ for partial sums and $\sigma_N$ for Cesaro means. More precisely:
+\[
+S_N = {a_1 + \dots + a_N}
+\] and
+\[
+\sigma_N = \frac{S_1 + \dots + S_N}{N}
+\]
+
+I will use $S_Nf$ and $\sigma_Nf$ for when the series is the Fourier series of $f$.
+
+\end{definition}
+
+Following remark shows that summability is a generalisation of convergence.
 
 
 \begin{remark}\label{convergence to the same value to the summable limit}
@@ -315,7 +355,7 @@ Now, we weaken our \textit{Convergence Question}: \\
 We give here a lemma which will make $\sigma_N f$ easy to deal with (especially when we try to estimate $|\sigma_N f - f|$).
 
 
-\begin{lemma}
+\begin{lemma}\label{convolutio for sigma_N with K_N}
     Let $f: \mathbb{R} \xrightarrow{} \mathbb{R} $ periodic on $\mathbb{R}$ and integrable on $[-\pi, \pi]$. Then,
     \[
     \sigma_Nf(x) = \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x-t)dt
@@ -340,20 +380,19 @@ We give here a lemma which will make $\sigma_N f$ easy to deal with (especially 
 To go further, we need to investigate \textit{Fejer kernel}s more. As will be seen, they act similar to the so-called \textit{Dirac-delta} ($\delta$) function.
 
 
-\begin{lemma}
-    For each natural number $N$,
-    \begin{align}
-        K_N(t) &\geq 0 \text{ for all } t \in \mathbb{R},\\
-        \intertext{and}
-        &\frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)dt = 1,\\
-        \intertext{for each  $\pi > \delta > 0$,}
-        &\lim_{N \to \infty} \int_{\delta}^{\pi}|K_N(t)|dt = 0.
-    \end{align}
+\begin{lemma}\label{properties of K_N}
+    For each natural number $N$, the following properties hold:
+    \begin{align*}
+        K_N(t) &\geq 0 \text{ for all } t \in \mathbb{R}, \\
+        \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t) \, dt &= 1, \\
+        \lim_{N \to \infty} \int_{\delta}^{\pi} |K_N(t)| \, dt &= 0 \\ 
+    \end{align*}
+for each $\pi > \delta > 0$.
 \end{lemma}
 
 
 \begin{proof}{Proof idea.}
-    For the first one, use Theorem 2 for $x \neq 2\pi k$. For second, use the definition of $K_N$ and for the third, observe that $\sin(\frac{t}{2}) \geq \sin(\frac{\delta}{2})$ for all $t > \delta$ and use Theorem 2.
+    For the first one, use \ref{non-series forms of kernels} for $x \neq 2\pi k$. For second, use the definition of $K_N$ and for the third, observe that $\sin(\frac{t}{2}) \geq \sin(\frac{\delta}{2})$ for all $t > \delta$ and use \ref{non-series forms of kernels}.
 \end{proof}
 
 
@@ -383,14 +422,24 @@ Before giving the actual proof, I want to give a "wrong path" in the right direc
 \begin{proof}[Proof trial]
     {As we mentioned above, $K_N$ reminds us $dirac-\delta$ function.}\\
    { We know that,}
+
+   
     \[
     \int_{-\pi}^{\pi}f(x)\delta(x - x_0)dx = f(x_0) \text{  ,for continuous f.}
     \]
-    For non-continuous \(f\), we wonder if we can use this idea for $Fejer kernels$, i.e.
+
+    
+    For non-continuous \(f\), we wonder if we can use this idea for \textit{Fejer kernels}, i.e.
+
+    
     \[
-    \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx(?) L
-    \]\footnotemark{}
+    \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx^{(?)} L\footnotemark{}
+    \]
+
+    
     \footnotetext{Unfortunately I could not proceed into this approach, see remark "Summability Kernels" below.}
+
+    
 \end{proof}
 
 
@@ -398,14 +447,28 @@ Now, we can dive into the actual proof.
 
 
 \begin{proof}
-We start by trying to approximate (as we generally do to show convergence) $|\sigma_N(x_0) - f(x_0)|$. We will, of course, use the lemmas above (otherwise, why give them?). Here we go:
+We start by trying to approximate (as we generally do to show convergence) $|\sigma_N(x_0) - f(x_0)|$. We will, of course, use the lemmas above. Here we go:
 \begin{align*}
-|\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - f(x_0)\right| \quad\text{(lemma 1)} \\
-&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0)dt\right| \quad\text{(lemma 2)} \\
+
+
+|\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - f(x_0)\right| \quad\text{(\ref{convolutio for sigma_N with K_N}} \\
+
+
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0)dt\right| \quad\text{(\ref{properties of K_N})} \\
+
+
 &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)(f(x_0-t) - f(x_0))dt \right|\\
+
+
 &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) - f(x_0))du \right| \quad\text{(u = -t change and evenness of $K_N$)}\\
+
+
 \end{align*}
+
+
 Now we add the last two (equal) expressions and divide by 2 to get a term in the form $f(x_0 + h) + f(x_0 - h)$.
+
+
 \begin{align*}
     &= \left|\frac{1}{2\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) + f(x_0 - u) - 2f(x_0))du \right| \\
     &= \left|\frac{2}{\pi} \int_{0}^{\pi} K_N(u)(\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0))du \right| \quad\text{(evenness of the expression inside)}\\
@@ -414,23 +477,25 @@ Now, let us call $\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0)$ as $F(x_0,u)$ for si
 \[
 \frac{2}{\pi} \int_{\delta}^{\pi} K_N(u)F(x_0,u)du \leq \frac{2M}{\pi} \int_{\delta}^{\pi} K_N(u)du
 \]
-which is smaller than $\epsilon$ for large N (see lemma 2). If we have chosen a small $\delta$, $|F(x_0, u)| \leq \epsilon$ since $L$ exists.
+which is smaller than $\epsilon$ for large N (see (\ref{properties of K_N})). If we have chosen a small $\delta$, $|F(x_0, u)| \leq \epsilon$ since $L$ exists.
 \[
 \frac{2}{\pi} \int_{0}^{\delta} K_N(u)F(x_0,u)du \leq \frac{2\epsilon}{\pi} \int_{0}^{\delta} K_N(u)du
 \]
-Last integral approaches to 1 as N goes to infinity (lemma 2). Hence, we managed to show that
+Last integral approaches to 1 as N goes to infinity (\ref{properties of K_N}). Hence, we managed to show that
 \[
 |\sigma_N(x_0) - f(x_0)| \leq \epsilon . C \quad\text{(a constant)}
 \]
-Our choice of $N$s do not depend on $x_0$, hence same arguments show that $\sigma_N \to f$ uniformly (we keep in mind that $I$ is compact, making \(f\) bounded.
+Our choice of $N$s do not depend on $x_0$, hence same arguments show that $\sigma_N \to f$ uniformly (we keep in mind that $I$ is compact, making \(f\) bounded.)
 \end{proof}
 
 
-\begin{corollary}{Uniqueness. \footnotemark{}
+\begin{corollary}[Uniqueness] \footnotemark{}
 
-\footnotetext{In Wade, it is named as "Completeness" but Prof. Gheondea preffered this name}}
 
-If $f : \mathbb{R} \to \mathbb{R}$ is continuous and periodic, and $a_k(\mathbb{f}) = b_k(\mathbb{f}) = 0$ for $k \in \mathbb{Z}$, then $f(x) = 0$ for all $x \in \mathbb{R}$.
+\footnotetext{In Wade, it is named as "Completeness" but Prof. Gheondea preffered this name---should I state it???}
+
+
+If $f : \mathbb{R} \to \mathbb{R}$ is continuous and periodic, and $a_k(f) = b_k(f) = 0$ for $k \in \mathbb{Z}$, then $f(x) = 0$ for all $x \in \mathbb{R}$.
 \end{corollary}
 
 
@@ -504,7 +569,7 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
     \]
     be a trigonometric series and set
     \[
-    \sigma_N(x) = \frac{a_0}{2} +\sum_{k=1}^{\infty}(1 - \frac{k}{N+1})a_k\cos(kx) + b_k\sin(kx)
+    \sigma_N(x) = \frac{a_0}{2} +\sum_{k=1}^{\infty}(1 - \frac{k}{N+1})(a_k\cos(kx) + b_k\sin(kx))
     \]
     $S$ is the fourier series of $f$, a continuous and periodic function, iff $\sigma_N \to f$ uniformly.
 \end{remark}
@@ -568,7 +633,7 @@ In previous section, we have seen that (in the light of Fejer Theorem) a continu
 
 
 \begin{theorem}[Bessel's Inequality]
-Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}{\infty}|a_k(f)|^2 + |b_k(f)|^2$ converges. Moreover, the inequality below holds:
+Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}^{\infty}|a_k(f)|^2 + |b_k(f)|^2$ converges. Moreover, the inequality below holds:
 \begin{equation}
     \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx \geq \frac{a_0^2}{2} + \sum_{n=1}^{\infty} \left(a_n^2 + b_n^2\right).
 \end{equation}
@@ -617,7 +682,7 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
         \[
         \begin{aligned}
             (\frac{a_0(f)f}{2} + \sum_{n=1}^{N} \left(a_n(f)f +
-         b_n(f)f\right)) \\
+         b_n(f)f\right))
          &=  \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx \\
          &\leq M \int_{-\pi}^{\pi}S_Nf(x) \, dx \\
          &\leq M \int_{-\pi}^{\pi}(\frac{1}{\pi} \int_{-\pi}^{\pi}f(x-t)D_N(t)dt) \, dx \\
@@ -634,7 +699,7 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
         \begin{aligned}
             0
             &\leq \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)-S_Nf(x)| \, dx \\
-            &= \frac{1}{\pi} \int_{-\pi}^{\pi}|f|^2 - \left( \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 + b_n^2\right) \right) \quad \text{three equivalences in the lemma}
+            &= \frac{1}{\pi} \int_{-\pi}^{\pi}|f|^2 - \left( \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 + b_n^2\right) \right) \quad \text{(three equivalences in the lemma)}
         \end{aligned}
         \]
         Since $N$ is arbitrary, we can take the limit and we are done.
@@ -651,10 +716,10 @@ We can state now the famous \emph{Riemann-Lebesque Lemma} as a corollary of the 
 \end{corollary}
 
 
-Our next major result is the \textit{Parseval's identity}, when $f$ is continuous and periodic the \textit{Bessel's inequality} actually becomes an equality. To prove that important theorem, we first give a lemma stating $S_Nf$s are the best approximation for $f$ in the following unusual sense\footnotemark{}.
+Our next major result is the \textit{Parseval's identity}, when $f$ is continuous and periodic, the \textit{Bessel's inequality} actually becomes an equality. To prove that important theorem, we first give a lemma stating $S_Nf$s are the best approximation for $f$ in the following unusual sense\footnotemark{}.
 
 
-\footnotetext{In measure theory, this lemma tells they are equal in the function space $L^2$}
+\footnotetext{In measure theory, this lemma tells $||f-S_Nf||_2 \leq ||f-T_N||_2$}
 
 
 \begin{lemma}
@@ -759,13 +824,11 @@ Now, we will use this theorem to prove a convergence fact.
 
 
 \begin{proof}
-    By the theorem, for sufficiently large $n$, $a_n(f), b_n(f) < \frac{1}{n^2}$. Hence, $S_N(f) <  \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n + b_n\right) < \infty$. Therefore the series converge absolutely. For the uniform convergence, we use \textit{Fejer theorem} and convergence of $S_Nf$ to the same value with $\sigma_N f$ \footnotemark{}\footnotetext{check again!}
+    By the theorem, for sufficiently large $n$, $a_n(f), b_n(f) < \frac{1}{n^2}$. Hence, $S_N(f) <  \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n + b_n\right) < \infty$. Therefore the series converge absolutely. For the uniform convergence, we use \textit{Fejer theorem} and convergence of $S_Nf$ to the same value with $\sigma_N f$.
 \end{proof}
 
 
-We want to make the assumptions of theorems as less as possible. In this quest, a new class of \emph{well-behaving} functions should be defined: \emph{functions of bounded variations.} \footnotemark{*?*}
-
-\footnotetext{to be asked!}
+We want to make the assumptions of theorems as less as possible. In this quest, a new class of \emph{well-behaving} functions should be defined: \emph{functions of bounded variations.} 
 
 
 After defining and some investigation on this new class, we will give a theorem on the growth of the coefficients of these kinds of functions.
@@ -774,12 +837,10 @@ After defining and some investigation on this new class, we will give a theorem 
 \subsection{Functions of bounded variations}
 
 
-In this part, we will deal with the functions that do not wiggle too much \footnotemark{}
+In this part, we will deal with the functions that do not wiggle too much\footnotemark{} which are defined while dealing with our \emph{Convergence question.}
 
 
 \footnotetext{A classic example of wiggling too much function is $\sin(\frac{1}{x})$ near 0.}
-
-which are defined while dealing with our \emph{Convergence question.}
 
 
 \begin{definition}
@@ -792,7 +853,7 @@ which are defined while dealing with our \emph{Convergence question.}
 
 Set
 \[
-V(\phi,P) = \sum_{k=0}^{n-1}|\phi(x_{k+1} - \phi(x_{k}|
+V(\phi,P) = \sum_{k=0}^{n-1}|\phi(x_{k+1}) - \phi(x_{k})|
 \]
 The \emph{variation} of $\phi$ is defined as
 \begin{equation}
@@ -829,7 +890,7 @@ We will give some facts on this class of functions without proofs. For details, 
 \end{corollary}
 
 
-Now, we return to our original topic, \emph{Fouier series}. We saw that if $f$ is of class $\cC^1$, then $ka_k(f)$ approach to zero (see \ref{growth of coefficients in C^j}). It is natural to ask that what happens in a more general case, functions of bounded variations (for being general, see \ref{bounded var. implications}). Let's first try an informal (or at physicist's standards, formal) calculation to approximate the bound. With the help of Riemann sums, Mean value theorem and $\sin(kx_0) = \sin(kx_n) = 0$, we can make the following approximation:
+Now, we return to our original topic, \emph{Fouier series}. We saw that if $f$ is of class $\cC^1$, then $ka_k(f)$ approach to zero (see \ref{growth of coefficients in C^j}). It is natural to ask that what happens in a more general case, functions of bounded variations (for being general, see \ref{bounded var. implications}). Let's first try an informal (of course for a mathematician's standarts) calculation to approximate the bound. With the help of Riemann sums, Mean value theorem and $\sin(kx_0) = \sin(kx_n) = 0$, we can make the following approximation:
 \[
 \begin{aligned}
     \pi a_k(f) = \int_{-\pi}^{\pi}f(x) \cos(kx) dx &\approx \sum_{i = 1}^{n}f(x_i)\cos(kx_i)(x_{i+1} - x_i)\\
@@ -884,7 +945,7 @@ This theorem tells us to use \emph{Riemann - Lebesque lemma}. But we will also g
 
 \begin{proof}\cite{Measure}\footnotemark{}
 
-\footnotetext{The body of the book is taken from \cite{Measure}}
+\footnotetext{The body of the proof is taken from \cite{Measure}}
 
 
     We will just prove the case $\alpha = 0$ and leave the rest ($\alpha \neq 0$ and the other coefficient $b_k(f)$) as an exercise. Via a change of variables ($x = u + \frac{\pi}{k}$) we get
@@ -907,10 +968,8 @@ All we need to do is to show that the first integral converges to zero.\footnote
  \footnotetext{This is most easily done by \emph{General Weierstrass Approximation Theorem} stating for every (Lebesque) integable function $f$ there exists a continuous function in the $\epsilon$-neighbourhood of $f$.}
 
 
-From measure theory, we know that if a function is (Riemann) integrable, then it has at most countably many discontinuities. We also know that countably many values do not contribute to integral, therefore what forms the value of the integral is the points where $f$ is continuous at. At these points, $f(x + \frac{\pi}{k}) \to f(x)$ as $k \to \infty$, hence, $|a_k|$ goes to zero.\footnotemark{*?*}
+From measure theory, we know that if a function is (Riemann) integrable, then it has at most countably many discontinuities. We also know that countably many values do not contribute to integral, therefore what forms the value of the integral is the points where $f$ is continuous at. At these points, $f(x + \frac{\pi}{k}) \to f(x)$ as $k \to \infty$, hence, $|a_k|$ goes to zero.
 
-
- \footnotetext{to be asked}
 
 
 \end{proof}
@@ -929,12 +988,10 @@ The following remark shows a useful application of Fourier series to approximate
 
 
     We can convince ourselves as such: By the fact (\ref{C^2 converges}), $Sf$ converges absolutely and uniformly. A theorem\footnotemark{}
+    from the branch \emph{series of function} gives us the necessary argument to claim that equality holds for every bounded $E \subset \RR$.
+
 
     \footnotetext{Check the related parts of \cite{Wade} for more information. }
-
-    form the branch \emph{series of function} gives us the necessary argument to claim that equality holds for every bounded $E \subset \RR$.
-
-
 
 
 Next remark can be used to give a different proof \emph{Riemann-Lebesque lemma} for continuous functions.
@@ -1047,7 +1104,7 @@ The following theorem is one of the deepest \emph{Tauberian type} results.
 \begin{proof}\footnotemark{*?*}
 
 
-\footnotetext{To be asked! Probably wrong but why?}
+\footnotetext{Symbols defined in \ref{notation}. Probably wrong but why?}
 
 
     We try to write partial sums in terms of Cesaro sums:
@@ -1090,26 +1147,40 @@ We are now in a position to answer the big \emph{Convergence Question.}
 
 \begin{remark}
     Suppose that $f$ is continuous and of bounded variations on $[-\pi,\pi]$. Then $S_Nf \to f$ pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
-\end{remark}\footnotemark{*?*}
+\end{remark}
 
 
-\footnotetext{it is given in the Exercises part in 4th section. But accordding to \ref{Dirichlet - Jordan} $S_Nf \to f$ uniformly, not just pointwise. Am I missing something? (it doesnt say $f$ is periodic in the remark, that might be the cause but how?)}
+
+If $f$ was periodic, we could simply use (\ref{Dirichlet - Jordan}).
+But with a minor change, we can still benefit from it. If $f(-\pi) = f(\pi)$,
+then we can extend $f_{|_{[-\pi,\pi]}}$ to $\RR$ via the definition $f(x + 2\pi) = f(x)$,
+then be able to use (\ref{Dirichlet - Jordan}). If $f(-\pi) \neq f(\pi)$, then we can extend $f_{|_{(-\pi,\pi]}}$
+to $\RR$ as previous. But here, convergence at the points ${-\pi,\pi}$ are not guaranteed since $f$ might have jump disconinuities there.
+Hence pointwise convergence is proven. To show that the convergence might not be uniform, we give the next example.
+
 
 
 \begin{example}
     \begin{enumerate}
-        \item[(a)] Prove that
+        \item[(a)]\footnotemark{}
+
+        
+        \footnotetext{This example also gives a function whose Fourier series converges to another function (for $x = \pi$)}
+
+        
+        Show that
         \[
         x = 2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\sin(kx)
         \]
-        pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
+        strictly pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
 
 
-        \item[(b)] Prove that
+        \item[(b)] Show that
         \[
         |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum_{k=1}^{\infty}\frac{\cos(2k-1)x}{(2k-1)^2}
         \]
         uniformly on $[-\pi,\pi]$.
+
 
         \item[(c)] Find a value for
         \[
@@ -1118,20 +1189,52 @@ We are now in a position to answer the big \emph{Convergence Question.}
     \end{enumerate}
 \end{example}
 
+
+
+We leave the \emph{strict pointwise} part to the end.
+
+
+In the parts (a) and (b), it can be observed that the series at the right are
+Fourier series of the functions at the left. For the convergence part,
+we can use above remark for (a) and (\ref{Dirichlet - Jordan}) for part (b).
+To determine the value of (c), put $x=\pi$ in (b).
+
+
+Let us now show that the convergence in part (a) is strict (non-uniform). If the convergence was uniform, then for all $\epsilon > 0$ we could find a $N_\epsilon \in \NN$ such that for all $N > N_\epsilon$,
+
+
+\begin{equation}\label{not uniform}
+    \left|x - 2\sum_{k=1}^{N}\frac{(-1)^{k+1}}{k}\sin(kx)\right| < \epsilon
+\end{equation}
+
+
+
+Since $\sin(kx) \to 0$ when $x$ is near $\pi^-$, for a given $\epsilon$ we can say $0 < \sin(kx) < \epsilon$ for $x$'s in $(\pi-\delta, \pi)$ for sufficiently large $\delta$. For an $N > N_\epsilon$,
+\[
+x - 2 \epsilon H_N = x - 2\sum_{k=1}^{N}\frac{1}{k}\epsilon \leq x - 2\sum_{k=1}^{N}\frac{(-1)^{k+1}}{k}\epsilon \leq x - 2\sum_{k=1}^{N}\frac{(-1)^{k+1}}{k}\sin(kx) 
+\]
+
+
+where $H_N \coloneqq N\textit{th harmonic sum}$. Since $N$ is fixed, $H_N$ is a finite number and $\epsilon$ is arbitrarily small; the last term is greater than $\pi - 2 > 0$. Hence, for $x$'s near $\pi$, left term of the inequality will be larger than $\pi - 2$ which shows it cannot converge to 0. Uniform convergence is not possible. \qed
+
+
+Unfortunately, here we need to end the journey.
+
+
 \section{The End}
 
-some text to summarize the report and give the necessary thanks.
 
-
-
+We began these notes by defining Fourier series in the form of trigonometric series. Then we looked at two kernels whose usefulness are proven in the later sections. After that, an important question arose: convergence. At first, we could not manage the answer that question fully but we found a "semi-answer": \emph{Cesaro summability}. Then by \emph{Tauberian-type theorems}, we saw a way to convert summability to convergence. But we needed an extra condition: \emph{being of bounded variation}. With this extra condition we reached to the \emph{Dirichlet - Jordan theorem} answering "under which conditions a Fourier series of a function converge to that function". Hence we reached our aim: Convergence question is answered. But beyond that, we gained some of the most famous results in analysis: \emph{Bessel's inequality, Parseval's identitiy, Hardy theorem} and \emph{Riemann -Lebesque lemma}.
 
 
 \begin{thebibliography}{99}
 
-\bibitem{Wade} \textsc{William R. Wade},  \textit{Introduction to analysis}, \textbf(2010).
-
 \bibitem{Measure} \textsc{M. Capinski, E. Kopp}, \textit{Measure, Integral and Probability}, Springer,
  1994.
+
+ \bibitem{History} \textit{N. Jacobs, K. P. Evans} \textit{The Historical Place of Fourier Analysis in Mathematics}, World Scientific, 2018
+
+ \bibitem{Wade} \textsc{William R. Wade},  \textit{Introduction to analysis}, \textbf(2010).
 
 \end{thebibliography}
 \end{document}
