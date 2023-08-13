@@ -89,7 +89,7 @@
 
 \begin{abstract}
 
-In this report, we will first define trigonometric series and by means of them, Fourier series. Then we will seek for an answer to a major question: "When does the Fourier series of a function converge to that function?" Throughout this journey we will encounter some of the major results in analysis such as \emph{Fejer theorem, Riemann - Lebesque lemma, Parseval's identity, Tauberian type theorems} and \emph{Dirichlet - Jordan theorem}.
+In this project, we will first consider trigonometric series and by means of them, Fourier series. Then we will seek for an answer to a major question: "When does the Fourier series of a function converge to that function?" Throughout this journey we will study some of the major results in analysis such as \emph{Fejer theorem, Riemann - Lebesque lemma, Parseval's identity, Tauberian type theorems} and \emph{Dirichlet - Jordan theorem}.
 \end{abstract}
 \maketitle
 
@@ -100,7 +100,6 @@ In this report, we will first define trigonometric series and by means of them, 
 
 
 
-\footnotemark{*?*}\footnotetext{Where to state the advisor?}
 
 
 Describing mathematical analysis is hard. But it is enough to define it as \emph{study of real-valued functions} \cite{History} for the purposes of this report. Our area of interest, \emph{Fourier series}, is a major branch of analysis. Before starting the mathematical investigation, I would like to mention a little bit of history and motivation to study it before. 
@@ -135,56 +134,67 @@ Lastly, I want to thank Prof. Aurelian Gheondea for his helps and advisorship to
 \footnotetext{Although I do not like the "devil's triangle", definition + theorem + proof,for a fast introduction I hope it is okay.}
 
 
+    A  trigonometric series $S$ is, by definition
 
-    Let \(f\) be an integrable function on [$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
     \[
-    S(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    S(x) = \frac{a_0}{2} +  \sum_{k = 1}^{\infty} (a_k \cos(kx) + b_k \sin(kx)).
     \]
 
-    The partial sums $S_N($\(f\)) are defined as
+
+    Let \(f\) be an integrable function on [-$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
     \[
-    S_N(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{N} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    S(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx)),
     \]
+
 
     where the coefficients $a_k(f)$ and $b_k(f)$ are defined as
 
     \[
-    a_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx
+    a_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx,
     \]
     \[
-    b_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx
+    b_k(f) = \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx.
     \]
+
+    
+
+    The partial sums $S_N($\(f\)) are defined as
+    \[
+    S_N(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{N} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx)).
+    \]
+
+    
 \end{definition}
 
 
 \begin{theorem}[Fourier]
     If a trigonometric series
     \[
-    S := \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
+    S := \frac{a_0}{2} +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
     \]
-   converges uniformly to a function \(f\), the $S$ is the Fourier series of \(f\), i.e. $S(f)$.
+   converges uniformly to a function \(f\), then $S$ is the Fourier series of \(f\), i.e. $S = S(f)$.
 \end{theorem}
 
     Here comes an important and a modern concept, orthogonality\footnotemark{}. We say two functions $f$ and $g$ are orthogonal (in our context, Fourier analysis) if $\int_{-\pi}^{\pi} f(x)g(x)\,dx = 0$. A careful observer may notice after some time spend on struggling with the proof that these three "orthogonalities" hold:
     \[
-    \int_{-\pi}^{\pi} \cos(mx)cos(nx) = \begin{cases}
-                                        0 & m \neq n \\
-                                      \pi &  m = n \neq 0\\
-                                     2\pi & m = n = 0
+    \int_{-\pi}^{\pi} \cos(mx)\cos(nx)dx = \begin{cases}
+                                        0 & m \neq n, \\
+                                      \pi &  m = n \neq 0,\\
+                                     2\pi & m = n = 0.
                                         \end{cases}
     \]
     \[
-    \int_{-\pi}^{\pi} \sin(mx)sin(nx) = \begin{cases}
-                                        0 & m \neq n \\
-                                      \pi &  m = n \neq 0\\
-                                        0 & m = n = 0
+    \int_{-\pi}^{\pi} \sin(mx)\sin(nx)dx = \begin{cases}
+                                        0 & m \neq n, \\
+                                      \pi &  m = n \neq 0,\\
+                                        0 & m = n = 0.
                                         \end{cases}
     \]
     \[
-    \int_{-\pi}^{\pi} \sin(mx)cos(nx) = 0
+    \int_{-\pi}^{\pi} \sin(mx)\cos(nx)dx = 0.
     \]
 
-    \footnotetext{As the name suggests, it is a generalisation of the concept "being perpendicular}
+    \footnotetext{As the name suggests, it is a generalisation of the concept "being perpendicular".}
 
 
 \begin{proof}[Proof idea]
@@ -193,130 +203,165 @@ Lastly, I want to thank Prof. Aurelian Gheondea for his helps and advisorship to
 \end{proof}
 
 
-    Now, two central questions in Fourier analysis is to be stated:
+    Now, two central questions in Fourier analysis are to be stated:
 
-\textbf{Convergence Question.} Given a function \( f : \mathbb{R} \to \mathbb{R} \), periodic on \( \mathbb{R} \) and integrable on \( [-\pi, \pi] \), does the Fourier series of \( f \) converge to \( f \)?
-
-
-\textbf{Uniqueness Question.} If a trigonometric series \( S \) converges to some function \( f \) integrable on \( [-\pi, \pi] \), is S the Fourier series of \(f\)?
+\textbf{Convergence Question.} Given a function \( f : \mathbb{R} \to \mathbb{R} \), periodic on \( \mathbb{R} \) and integrable on \( [-\pi, \pi] \), does the Fourier series of \( f \) converge to \( f \)? And in the convergence case, which type of convergence is it?
 
 
-Uniqueness question is answered if the convergence is uniform. We will try to answer only the first questions in the next sections. Now comes the two important definitions which will play an important role in the next chapter.\footnotemark{}
+\textbf{Uniqueness Question.} If a Fourier series \( S \) converges to some function \( f \) integrable on \( [-\pi, \pi] \), is S the Fourier series of \(f\)?
+
+
+Uniqueness question is answered if the convergence is uniform. We will try to answer only the first questions in the next sections. Now comes the two important definitions which will play an important role in the next section.\footnotemark{}
 
 
 \footnotetext{You may say "Then why given here?" You are right.}
 
 
-\textbf{Definition.} Let $N$ be a nonnegative integer.
+\begin{definition} Let $N$ be a nonnegative integer.
 \begin{enumerate}
-  \item[(i)] The Dirichlet kernel of order $N$ is the function defined for each $x \in \mathbb{R}$, by
+  \item[(i)] The Dirichlet kernel of order $N$ is the function $D_N$ defined for each $x \in \mathbb{R}$, by
   \[
   D_N(x) = \begin{cases}
-            \frac{1}{2} & \text{if } N = 0, \\
-            \frac{1}{2}  + \sum_{k=1}^{N} \cos(kx) & \text{if } N \in \mathbb{N}.
+            \frac{1}{2} & \text{, if } N = 0, \\
+            \frac{1}{2}  + \sum_{k=1}^{N} \cos(kx) & \text{, if } N \in \mathbb{N}.
            \end{cases}
   \]
 
-  \item[(ii)] The Fejer kernel of order $N$ is the function defined for each $x \in \mathbb{R}$, by
+  \item[(ii)] The Fejer kernel of order $N$ is the function $K_N$ defined for each $x \in \mathbb{R}$, by
   \[
   K_N(x) = \begin{cases}
-            \frac{1}{2} & \text{if } N = 0, \\
-            \frac{1}{2} + \sum_{k=1}^{N}\left( 1 - \frac{k}{N + 1} \right)\cos(kx) & \text{if } N \in \mathbb{N}.
+            \frac{1}{2} & \text{, if } N = 0, \\
+            \frac{1}{2} + \sum_{k=1}^{N}\left( 1 - \frac{k}{N + 1} \right)\cos(kx) & \text{, if } N \in \mathbb{N}.
            \end{cases}
   \]
 \end{enumerate}
+\end{definition}
 
-
-\begin{remark}
+\begin{remark}\label{relation between dirichlet and fejer}
     If $N$ is a nonnegative integer, then
 \[
 K_N(x) = \frac{D_0(x) + D_1(x) + \dots + D_N(x)}{N+1}
 \]
-for all $x \in \mathbb{R}$
+for all $x \in \mathbb{R}$.
 \end{remark}
 
 
 \begin{theorem}\label{non-series forms of kernels}
-    If $x$ cannot be written in the form $2k\pi$ for any $k \in \mathbb{Z}$, then the following equalities hold
+    If $x$ cannot be written in the form $2k\pi$ for some $k \in \mathbb{Z}$, then the following equalities hold
 
     \[
-    D_N(x) = \frac{\sin(N + \frac{1}{2})x}{2\sin(\frac{x}{2})}
+    D_N(x) = \frac{\sin\left(N + \frac{1}{2}\right)x}{2\sin(\frac{x}{2})} \text{,}
     \]
     \[
-    K_N(x) = \frac{2}{N+1}(\frac{\sin(\frac{N + 1}{2})x}{2\sin(\frac{x}{2})})^2
+    K_N(x) = \frac{2}{N+1}\left(\frac{\sin\left(\frac{N + 1}{2}\right)x}{2\sin(\frac{x}{2})}\right)^2 \text{.}
     \]
 \end{theorem}
 
 
-\begin{proof}[Proof idea] We try to express  $D_N(x)\sin(\frac{x}{2})$ in a different form. Here we remember (after a while of course) the forgotten high school formula,
+\begin{proof}[Proof idea] We try to express  $D_N(x)\sin(\frac{x}{2})$ in a different form. Here we remember (after a while, of course) the high school formula,
 \[
-\cos(\alpha)\sin(\beta) = \sin(\alpha + \beta) - \sin(\alpha - \beta)
+2\cos(\alpha)\sin(\beta) = \sin(\alpha + \beta) - \sin(\alpha - \beta) \text{.}
 \]
     Then, the result is a telescoping sum yielding the desired expression.
 \end{proof}
 
 
 
-     \begin{remark}
+     \begin{remark}\label{dirichlet convolution for S_N}
          If \(f\) is integrable, then
     \[
-    S_N(f)(x) = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\,dt
+    S_N(f)(x) = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\,dt \text{.}
     \]
      \end{remark}
 
 
-        We prove this fact by starting with looking at an arbitrary term of $S_Nf(x)$,
+        We prove this fact by starting looking at an arbitrary term of $S_Nf(x)$,
 
         \begin{align*}
             a_k\cos(kx) + b_k\sin(kx) &= \frac{1}{\pi}\int_{-\pi}^{\pi}\cos(kt)f(t)dt \cdot \cos(kx) + \frac{1}{\pi}\int_{-\pi}^{\pi}\sin(kt)f(t)dt \cdot \sin(kx)\\
         &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)(\cos(kt)\cos(kx) + \sin(kt)\sin(kx))dt\\
-        &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos((x-t)k)dt\\
+        &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos((x-t)k)dt \text{.}\\ 
         \end{align*}
-        Now, we add these terms up,
+        Now, we add these terms up and get,
         \begin{align*}
             S_N(x) &=\frac{a_0}{2} + \sum_{k=1}^{N} (a_k\cos(kx) + b_k\sin(kx))\\
             &= \frac{a_0}{2} + \sum_{k=1}^{N}(\frac{1}{\pi}\int_{-\pi}^{\pi}f(t)\cos((x-t)k)dt) \\
-            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t) (\frac{a_0}{2} + \sum_{k=1}^{N}\cos((x-t)k)dt)) \\
-            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)dt \qedhere
+            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t) (\frac{a_0}{2} + \sum_{k=1}^{N}\cos((x-t)k))) dt\\
+            &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)dt \text{.}\qedhere
         \end{align*}
 
      \begin{example}
      Let \(f\) be a function defined as
     \[
     f(x) = \begin{cases}
-        \frac{x}{|x|} & x \neq 0\\
-        0             & x = 0
+        \frac{x}{|x|} &, x \neq 0 \text{,}\\
+        0             &, x = 0 \text{.}
     \end{cases}
     \]
-    \textbf{(a)} Compute the Fourier coefficients of $f$.
+    \begin{itemize}
+    
+    \item[(a)] We compute $b_k(f)$ as stated in the definition, $a_k(f)$ being 0 can be seen more easily.
 
-    \textbf{(b)} Prove that
+\[
+    \begin{aligned}
+         b_k(f) &= \frac{1}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx\\
+                &= \frac{1}{\pi}\int_{-\pi}^{0} - \sin(kx)\,dx + \frac{1}{\pi}\int_{0}^{\pi} \sin(kx)\,dx\\
+                &= \frac{1}{\pi} \left(\left(\frac{\cos(kx)}{k}\right)|_{x=-\pi}^{x=0} - \left(\frac{\cos(kx)}{k}\right)|_{x=0}^{x=\pi}\right)\\
+                &= \begin{cases}
+                    \frac{4}{k\pi} & \text{$k$ is odd,} \\
+                                 0 & \text{$k$ is even.}
+                \end{cases}
+    \end{aligned}
+\]
+
+
+    \item[(b)]  We prove that
     \[
     (S_{2N} f)(x) = \frac{2}{\pi} \int_{-\pi}^{\pi} \frac{\sin(2Nt)}{\sin(t)} \,dt
     \]
     for $x \in [-\pi,\pi]$ and $N \in \mathbb{N}$.
 
-    \textbf{(c) [Gibbs's phenomenon].} Prove that
+    First, with our knowledge from part (a) and Fundamental Theorem of Calculus, we get
+
+
+    \[
+    S_{2N}f(x) = \frac{4}{\pi}  \int_{0}^{\pi} \sum_{k = 1}^{N} \frac{\sin(2k - 1)x}{2k - 1}dx = \frac{4}{\pi} \sum_{k = 1}^{N} \cos(2k - 1)t dt. (\ast)
+    \]
+
+
+    By sum-angle formula and telescoping we get
+
+
+    \[
+   2 \sin(t) \sum_{k = 1}^{N} \cos(2k - 1)t =  \sum_{k = 1}^{N}(\sin(2kt) - \sin((2k-2)t) = \sin(2Nt).
+    \]
+
+
+    Combining this result with $(\ast)$, we reach our result.
+
+
+    
+    \item[(c)][Gibbs's phenomenon]  Using some tricks and formulas of analysis, we get,
     \[
     \lim_{N \to \infty}(S_{2N} f)(\frac{\pi}{2N}) = -\frac{2}{\pi}\int_{-\pi}^{\pi} \frac{\sin(t)}{t} dt \approx 1.179
     \]
     as $N \to \infty$.
+
+    Normally we would guess that the Fourier series of a function should converge to the function. But as we will see in \emph{Fejer theorem}, in discontinuity points anomalies happen. This anomaly is called \emph{Gibbs's phenomenon} and defined as "the oscillatory behavior of the Fourier series of a piecewise continuously differentiable periodic function around a jump discontinuity."\cite{Wikipedia}.
+    \end{itemize}
      \end{example}
 
 
-    \begin{proof}[Hint]
-        \textbf{(c)} Use uniform convergence to interchange the limit and integral.
-    \end{proof}
 
 
 \section{Summability of Fourier Series}
 
 
-Continuous functions are known to be "well-behaving" functions in many contexts for many mathematicians. But when it comes to Fourier analysis, the basic (and basis) "Convergence question" becomes very difficult to answer even for continuous functions. Here we replace "convergence of functions" with a simpler kind of "convergence", being summable, and show that Fourier series of any continuous periodic function \(f\) is uniformly summable to \(f\).
+Continuous functions are known to be "well-behaving" functions in many contexts for many mathematicians. But when it comes to Fourier analysis, the basic (and basis) "Convergence question" becomes very difficult to answer even for continuous functions. Here we replace "convergence of functions" with a weaker kind of "convergence", being summable, and show that Fourier series of any continuous periodic function \(f\) is uniformly summable to \(f\).
 
 
 \begin{definition}
-    A series $\sum_{k=0}^{\infty} a_k$ with partial sums $S_N$ is said to be \textit{Cesaro summable} to $L$ if \textit{Cesaro means}
+    A series $\sum_{k=0}^{\infty} a_k$ with partial sums $S_N$ is said to be \textit{Cesaro summable} to $L$ if the arithmetic means of partial sums $S_N$ converges to $L$. More precisely, if \textit{Cesaro means}
     \[
     \sigma_N \coloneqq   \frac{S_0 + S_1 + \dots + S_N }{N+1}
     \]
@@ -324,20 +369,22 @@ Continuous functions are known to be "well-behaving" functions in many contexts 
 \end{definition}
 
 
-\begin{definition}[Notation]\label{notation}
+\textbf{Notation}:\label{notation}
     Throughout the report, given a series $\sum_{k=1}^{\infty}a_k$, I will use the symbol $S_N$ for partial sums and $\sigma_N$ for Cesaro means. More precisely:
 \[
 S_N = {a_1 + \dots + a_N}
 \] and
 \[
-\sigma_N = \frac{S_1 + \dots + S_N}{N}
+\sigma_N = \frac{S_1 + \dots + S_N}{N}.
 \]
 
-I will use $S_Nf$ and $\sigma_Nf$ for when the series is the Fourier series of $f$.
+I will use $S_Nf$ and $\sigma_Nf$ for the case when the series is the Fourier series of $f$.
 
-\end{definition}
 
-Following remark shows that summability is a generalisation of convergence.
+
+
+
+The following remark shows that Cesaro summability is a generalisation of convergence.
 
 
 \begin{remark}\label{convergence to the same value to the summable limit}
@@ -356,28 +403,28 @@ We give here a lemma which will make $\sigma_N f$ easy to deal with (especially 
 
 
 \begin{lemma}\label{convolutio for sigma_N with K_N}
-    Let $f: \mathbb{R} \xrightarrow{} \mathbb{R} $ periodic on $\mathbb{R}$ and integrable on $[-\pi, \pi]$. Then,
+    Let $f: \mathbb{R} \xrightarrow{} \mathbb{R} $ be periodic and integrable on $[-\pi, \pi]$. Then,
     \[
     \sigma_Nf(x) = \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x-t)dt
     \]
-    for all $N \in \mathbb{N}$ and for all $ x \in \mathbb{R}$.\footnotemark{}
+    for all $N \in \mathbb{N}$ and for all $ x \in \mathbb{R}$ where $K_N$ is the Fejer kernel.\footnotemark{}
     \footnotetext{This may remind you the convolution and you are right!}
 \end{lemma}
 
 
-\begin{proof} As standart, we begin with the definition and equal formulations of the expression:
+\begin{proof} As standard, we begin with the definition and equal formulations of the expression:
     \begin{align*}
     \sigma_Nf(x) &= \frac{S_0f + S_1f + \dots + S_Nf}{N+1}\\
                  &= \frac{\sum_{k = 0}^{N}S_kf}{N+1} \\
-                 &= \frac{\sum_{k = 0}^{N}\frac{1}{\pi}\int_{-\pi}^{\pi}D_k(t)f(x-t)dt}{N+1} &&\text{(see exercise 1.1)}\\
+                 &= \frac{\sum_{k = 0}^{N}\frac{1}{\pi}\int_{-\pi}^{\pi}D_k(t)f(x-t)dt}{N+1} &&\text{(see Remark \ref{dirichlet convolution for S_N})}\\
                  &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x-t)\frac{\sum_{k = 0}^{N}D_k}{N+1}dt &&\text{(interchange sum \& integral for finite series)}\\
-                 &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x-t)K_N(t)dt &&\text{(see the remark for $D_N$ and $K_N$)}\qedheres
+                 &= \frac{1}{\pi}\int_{-\pi}^{\pi}f(x-t)K_N(t)dt &&\text{(see Remark \ref{relation between dirichlet and fejer})}\qedheres
     \end{align*}
 \end{proof}
 
 
 \par
-To go further, we need to investigate \textit{Fejer kernel}s more. As will be seen, they act similar to the so-called \textit{Dirac-delta} ($\delta$) function.
+To go further, we need to investigate \textit{Fejer kernel}s more. As will be seen, they approximate the so-called $\delta$ function.
 
 
 \begin{lemma}\label{properties of K_N}
@@ -385,33 +432,30 @@ To go further, we need to investigate \textit{Fejer kernel}s more. As will be se
     \begin{align*}
         K_N(t) &\geq 0 \text{ for all } t \in \mathbb{R}, \\
         \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t) \, dt &= 1, \\
-        \lim_{N \to \infty} \int_{\delta}^{\pi} |K_N(t)| \, dt &= 0 \\ 
+        \lim_{N \to \infty} \int_{\delta}^{\pi} |K_N(t)| \, dt &= 0 \text{ for each $\pi > \delta > 0$.}\\ 
     \end{align*}
-for each $\pi > \delta > 0$.
+
 \end{lemma}
 
 
-\begin{proof}{Proof idea.}
-    For the first one, use \ref{non-series forms of kernels} for $x \neq 2\pi k$. For second, use the definition of $K_N$ and for the third, observe that $\sin(\frac{t}{2}) \geq \sin(\frac{\delta}{2})$ for all $t > \delta$ and use \ref{non-series forms of kernels}.
+\begin{proof}[Proof idea.]
+    For the first one, use Theorem \ref{non-series forms of kernels} for $x \neq 2\pi k$. For the second one, use the definition of $K_N$ and for the third one, observe that $\sin(\frac{t}{2}) \geq \sin(\frac{\delta}{2})$ for all $t > \delta$ and use Theorem \ref{non-series forms of kernels}.
 \end{proof}
 
 
-Now comes the theorem we have been giving lemma after lemma for just to be able to prove more easily, \textit{Fejer Theorem};
+Now comes the theorem we have been giving lemma after lemma for just to be able to prove more easily, \textit{Fejer theorem}.
 
 
 \begin{theorem}[Fejer]
-    Suppose that $f: \mathbb{R} \to \mathbb{R}$ is periodic and integrable on each compact interval.
+    Suppose that $f: \mathbb{R} \to \mathbb{R}$ is periodic and integrable on each compact interval. If 
 
 
-    \footnotemark{*?*} \footnotetext{to be asked!}
-
-
-        1. If \begin{equation}
+        \begin{equation}
              L = \lim_{h \to 0} \frac{f(x_0 + h) + f(x_0 - h)}{2}
         \end{equation}
 
         exists for some $x_0 \in \mathbb{R}$, then $\sigma_Nf(x_0) \to L$ as $N \to \infty$.   \\
-        2. If \(f\) is continuous in some closed interval $I$, then $\sigma_Nf \to f$ uniformly on $I$.
+        If \(f\) is continuous in some closed interval $I$, then $\sigma_Nf \to f$ uniformly on $I$.
 
 \end{theorem}
 
@@ -420,12 +464,12 @@ Before giving the actual proof, I want to give a "wrong path" in the right direc
 
 
 \begin{proof}[Proof trial]
-    {As we mentioned above, $K_N$ reminds us $dirac-\delta$ function.}\\
-   { We know that,}
+    {As we mentioned above, $K_N$ approximates the $\delta$ function.}\\
+   { We know that, formally,}
 
    
     \[
-    \int_{-\pi}^{\pi}f(x)\delta(x - x_0)dx = f(x_0) \text{  ,for continuous f.}
+    \int_{-\pi}^{\pi}f(x)\delta(x - x_0)dx = f(x_0) \text{, for continuous $f$.}
     \]
 
     
@@ -433,8 +477,8 @@ Before giving the actual proof, I want to give a "wrong path" in the right direc
 
     
     \[
-    \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx^{(?)} L\footnotemark{}
-    \]
+    \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t)f(x_0 - t)dt \approx^{(?)} L.\footnotemark{}
+    \] \qedhere
 
     
     \footnotetext{Unfortunately I could not proceed into this approach, see remark "Summability Kernels" below.}
@@ -449,20 +493,10 @@ Now, we can dive into the actual proof.
 \begin{proof}
 We start by trying to approximate (as we generally do to show convergence) $|\sigma_N(x_0) - f(x_0)|$. We will, of course, use the lemmas above. Here we go:
 \begin{align*}
-
-
-|\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - f(x_0)\right| \quad\text{(\ref{convolutio for sigma_N with K_N}} \\
-
-
-&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0)dt\right| \quad\text{(\ref{properties of K_N})} \\
-
-
+|\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - f(x_0)\right| \quad\text{(Lemma \ref{convolutio for sigma_N with K_N})} \\
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0-t)dt - \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x_0)dt\right| \quad\text{(Lemma \ref{properties of K_N})} \\
 &= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)(f(x_0-t) - f(x_0))dt \right|\\
-
-
-&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) - f(x_0))du \right| \quad\text{(u = -t change and evenness of $K_N$)}\\
-
-
+&= \left|\frac{1}{\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) - f(x_0))du \right| \quad\text{($u = -t$ change and evenness of $K_N$)}\\
 \end{align*}
 
 
@@ -470,22 +504,22 @@ Now we add the last two (equal) expressions and divide by 2 to get a term in the
 
 
 \begin{align*}
-    &= \left|\frac{1}{2\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) + f(x_0 - u) - 2f(x_0))du \right| \\
-    &= \left|\frac{2}{\pi} \int_{0}^{\pi} K_N(u)(\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0))du \right| \quad\text{(evenness of the expression inside)}\\
+    |\sigma_N(x_0) - f(x_0)| &= \left|\frac{1}{2\pi} \int_{-\pi}^{\pi} K_N(u)(f(x_0+u) + f(x_0 - u) - 2f(x_0))du \right| \\
+    &= \left|\frac{2}{\pi} \int_{0}^{\pi} K_N(u)(\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0))du \right| \\
 \end{align*}
-Now, let us call $\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0)$ as $F(x_0,u)$ for simplicity. since \(f\) is (Darboux) integrable, it is bounded and $M \vcentcolon = \sup_{u \in \mathbb{R}} F(x_0,u)$ exists.
+Now, let us call $|\frac{f(x_0+u) + f(x_0 - u)}{2} - f(x_0)|$ as $F(x_0,u)$ for simplicity. Since \(f\) is (Riemann) integrable, it is bounded and $M \vcentcolon = \sup_{u \in \mathbb{R}} F(x_0,u)$ exists.
 \[
 \frac{2}{\pi} \int_{\delta}^{\pi} K_N(u)F(x_0,u)du \leq \frac{2M}{\pi} \int_{\delta}^{\pi} K_N(u)du
 \]
-which is smaller than $\epsilon$ for large N (see (\ref{properties of K_N})). If we have chosen a small $\delta$, $|F(x_0, u)| \leq \epsilon$ since $L$ exists.
+which is smaller than $\epsilon$ for large N (see Lemma \ref{properties of K_N}). If we have chosen a small $\delta$, $|F(x_0, u)| \leq \epsilon$ since $L$ exists.
 \[
 \frac{2}{\pi} \int_{0}^{\delta} K_N(u)F(x_0,u)du \leq \frac{2\epsilon}{\pi} \int_{0}^{\delta} K_N(u)du
 \]
-Last integral approaches to 1 as N goes to infinity (\ref{properties of K_N}). Hence, we managed to show that
+Last integral approaches to 1 as N goes to infinity by Lemma \ref{properties of K_N}. Hence, we managed to show that
 \[
-|\sigma_N(x_0) - f(x_0)| \leq \epsilon . C \quad\text{(a constant)}
+|\sigma_N(x_0) - f(x_0)| \leq \epsilon \cdot C \quad\text{(for some constant $C$)}
 \]
-Our choice of $N$s do not depend on $x_0$, hence same arguments show that $\sigma_N \to f$ uniformly (we keep in mind that $I$ is compact, making \(f\) bounded.)
+Our choice of $N$ does not depend on $x_0$, hence same arguments show that $\sigma_N \to f$ uniformly (we keep in mind that $I$ is compact, making \(f\) bounded.)
 \end{proof}
 
 
@@ -517,48 +551,52 @@ If $f : \mathbb{R} \to \mathbb{R}$ is continuous and periodic, and $a_k(f) = b_k
 This last corollary can be used to prove a very strange theorem in analysis, \textit{Weierstrass Approximation Theorem}.
 
 
-\begin{theorem}[Weierstrass Approximation Theorem] Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
+\begin{theorem}[Weierstrass Approximation Theorem] Let $[a, b]$ be a closed bounded interval and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given any $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
 \end{theorem}
 
 
-\begin{proof} WLOG take $-a = b = \pi$\\
+\begin{proof} We can form a new function $g: [-\pi,\pi] \to \RR$ and set it to 
+\[
+g(x) \coloneqq f\left(\frac{a+b}{2} + \frac{(b-a)x}{2\pi}\right)
+\]
+and WLOG make the assumption $-a = b = \pi$.\\
+
     We already learned that given a positive $\epsilon$ there exists a trigonometric polynomial $T_{N_\epsilon}$ such that
     \[
-    |f - T_{N_\epsilon}|(x) < \epsilon
+    |f - T_{N_\epsilon}|(x) < \epsilon \text{ for all $x$.}
     \]
-    Both $\sin(kx)$ and $\cos(kx)$ are analytic functions \footnotemark{}
+    Both $\sin(kx)$ and $\cos(kx)$ are analytic functions, hence, there exists a classical polynomial $P$ such that
 
 
-    \footnotetext{Meaning they can be written as a power series}
-
-    . Hence, there exists a classical polynomial $P$ such that
+   
     \[
-    |T_{N_\epsilon} - P|(x) < \epsilon
+    |T_{N_\epsilon} - P|(x) < \epsilon.
     \]
     By combining two inequalities (and applying necessary algebra) we get
     \[
-    |f - P|(x) < \epsilon
+    |f - P|(x) < \epsilon \text{ for all $x$.}
     \]
 \end{proof}
 
 
-This theorem shows that (classical and trigonometric) polynomials are dense in the function space $C^{0}[-\infty, \infty]$
+This theorem shows that the set of (algebraic and trigonometric) polynomials are dense in the function space $C^{0}(-\infty, \infty)$ with respect to the topology induced by the standard metric on $\RR$.
 
 
 \begin{remark}
-    Let $E \subset \mathbb{R}$, and suppose that $f, f_k : \mathbb{R} \to \mathbb{R}$ are bounded functions. If $\sum_{k = 0}^{ \infty} f_k$ converges uniformly to $f$ on $E$, then
+    Let $E \subset \mathbb{R}$, and suppose that $f, f_k : \mathbb{R} \to \mathbb{R}$ are bounded functions. If $\sum_{k = 0}^{ \infty} f_k$ converges uniformly to $f$ on $E$ then, letting,
 
-\[\sigma_N(x) := \sum_{k=0}^{N} (1 - \frac{k}{N+1}) f_k(x)\]
+\[\sigma_N(x) := \sum_{k=0}^{N} (1 - \frac{k}{N+1}) f_k(x) \text{, $x \in \RR,$}
+\]
 
-converges to $f(x)$ uniformly on $E$ as $N \to \infty$.
+$(\sigma_N)_N$ converges to $f$ uniformly on $E$ as $N \to \infty$.
 \end{remark}
 
 
- We give the core idea to prove this remark. Let $S_k$ be the partial sum of the series  $\sum_{t = 0}^{\infty}f_t$. Then,
+ We give the core idea to prove this remark. Let $S_k$ be the partial sum of the series  $\sum_{j = 0}^{\infty}f_j$. Then,
 \[
-\sigma_N(x) = \frac{\sum_{k = 0}^{\infty}S_k}{N+1}
+\sigma_N(x) = \frac{1}{N+1} \sum_{k = 0}^{N}S_k
 \]
-We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
+We know that for large $N$, $S_k(x)$ is in the $\epsilon$-neighborhood of \(f(x)\) with respect to the topology induced by the standard metric on $\RR$.
 
 
 
@@ -569,55 +607,52 @@ We know that for large $N$, $S_k$ is in the $\epsilon$-Neighborhood of \(f\).
     \]
     be a trigonometric series and set
     \[
-    \sigma_N(x) = \frac{a_0}{2} +\sum_{k=1}^{\infty}(1 - \frac{k}{N+1})(a_k\cos(kx) + b_k\sin(kx))
+    \sigma_N(x) = \frac{a_0}{2} +\sum_{k=1}^{\infty}(1 - \frac{k}{N+1})(a_k\cos(kx) + b_k\sin(kx)).
     \]
-    $S$ is the fourier series of $f$, a continuous and periodic function, iff $\sigma_N \to f$ uniformly.
+    $S$ is the Fourier series of $f$, a continuous and periodic function, if and only if $\sigma_N \to f$ uniformly.
 \end{remark}
 
 
 Let us give an argument to this fact.
-    If $ S = Sf$, then by then by \textit{Fejer theorem}, $\sigma_N = \sigma_Nf \to f$ uniformly.
+    If $ S = Sf$, then by \textit{Fejer theorem}, $\sigma_N = \sigma_Nf \to f$ uniformly.
     Conversely, assume $\sigma_N \to f$ uniformly. Remember that $Sf$ is determined completely by the coefficients. We prove that $a_k = a_k(f)$. Rest is similar.
 
     \begin{align*}
         a_k(f) &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(kx) dx\\
-        &= \frac{1}{\pi} \int_{-\pi}^{\pi} \lim_{N \to \infty}\sigma_N(x) \cos(kx) dx\\
-        &= \lim_{N \to \infty} \frac{1}{\pi} \int_{-\pi}^{\pi} \sigma_N(x) \cos(kx) dx \quad \text{(uniform convergence)}\\
-        &= \lim_{N \to \infty} (1 - \frac{k}{N+1})a_k \\
-        &= a_k
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi} \lim_{N \to \infty}\sigma_N(x) \cos(kx) dx \\
+        &= \lim_{N \to \infty} \frac{1}{\pi} \int_{-\pi}^{\pi} \sigma_N(x) \cos(kx) dx \quad \text{(interchanging limits in the uniform convergence)}\\
+        &= \lim_{N \to \infty} (1 - \frac{k}{N+1})a_k = a_k.       
     \end{align*}
 
 
 
 \begin{example}
-    Show that
+    Let us show that
     \[
     S = \sin(\sqrt{2}\pi) + \sum_{k=0}^{\infty}\frac{4(-1)^k\sin(\sqrt{2}\pi)}{2-k^2}\cos(kx)
     \]
-    converges uniformly to $\sqrt{2}\pi\cos(\sqrt{2}\pi)$.
+    converges uniformly to $\sqrt{2}\pi\cos(\sqrt{2}\pi x)$.
 \end{example}
 
 
-\begin{proof}
     Since this problem is given in \textit{Fourier Series}, we look for solutions in that context. First, let us remind that \textit{"If $\sigma_Nf$ converges to $L$ and if we know $S_Nf$ converges, we can conclude $S_Nf$ converges to $L$."}
 
     \par Without previous remark, it is a difficult series to deal with, but we are lucky. In light of this, we look for a \textit{continuous $f$}. The series $S$ converges (this can be shown by elementary calculus methods), hence if we can find such an \(f\), we are done with the help of the remind and remark above plus "Fejer theorem". \par
 
-    We are given a hint, \(f\) is probably $\sqrt{2}\pi\cos(\sqrt{2}\pi)$. By that choice, $b_k(f) = 0$ and
+    We are given a hint, \(f\) is probably $\sqrt{2}\pi\cos(\sqrt{2}\pi x)$. By that choice, $b_k(f) = 0$ and
     \begin{align*}
         a_k(f) &= \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(kx) dx \\
                &= \sqrt{2} \int_{-\pi}^{\pi}  \cos(\sqrt{2}\pi) \cos(kx) dx \\
                &= \frac{4(-1)^k\sin(\sqrt{2}\pi)}{2-k^2} \quad \text{(left as an exercise!)}
     \end{align*}
-\end{proof}
 
 
 \begin{remark}[Summability Kernels] Let $\phi_N$ be a sequence of real valued, continuous and periodic functions that satisfy
 \begin{align*}
-    \int_{0}^{2\pi} \phi_N = 1 \text{ and } \int_{0}^{2\pi} |\phi_N| < M < \infty \\
-    \intertext{for all $N \in \mathbb{N}$ and }\\
-    \lim_{N \to \infty} \int_{\delta}^{2\pi - \delta} |\phi_N| = 0\\
-    \intertext{for all $2\pi > \delta > 0$. Suppose that $f$ is continuous and periodic on $\mathbb{R}$}\\
+    \int_{0}^{2\pi} \phi_N = 1 \text{, } \int_{0}^{2\pi} |\phi_N| < M < \infty \text{, }\\
+    \intertext{for all $N \in \mathbb{N}$, and }\\
+    \lim_{N \to \infty} \int_{\delta}^{2\pi - \delta} |\phi_N| = 0 \text{, }\\
+    \intertext{for all $2\pi > \delta > 0$. If $f$ is continuous and periodic on $\mathbb{R}$, then}\\
     \lim_{N \to \infty} \int_{0}^{2\pi} f(x - t)\phi_N(t)dt = f(x)\\
     \intertext{uniformly for all $x$.}
 \end{align*}
@@ -627,15 +662,15 @@ Let us give an argument to this fact.
 \section{Growth of Fourier Coefficients}
 
 
-In previous section, we have seen that (in the light of Fejer Theorem) a continuous function is completely determined by its Fourier coefficients\footnotemark{}\footnotetext{Coefficients determine $\sigma_Nf$ and it converges to $f$}. In this section, we investigate the behaviour of these coefficients, specifically how fast they approach to $0$. \paragraph{}
-    Our deep aim is to determine when $Sf$ converges to $f$. In that case, coefficients converge to 0. Yet, we are not able to answer the general convergence question, but we will instead catch a hope, called \textbf{Riemann-Lebesque Lemma}, stating $a_k(f)$ and $b_k(f)$ have to converge to zero. \paragraph{}
-    To prove this lemma we use \textbf{Bessel's inequality}.
+In the previous section, we have seen that (in the light of Fejer Theorem) a continuous function is completely determined by its Fourier coefficients\footnotemark{}\footnotetext{Coefficients determine $\sigma_Nf$ and it converges to $f$}. In this section, we investigate the behaviour of these coefficients, specifically how fast they approach to $0$. \paragraph{}
+    Our aim is to determine when $Sf$ converges to $f$. In that case, coefficients converge to 0. Yet, we are not able to answer the general convergence question, but we will instead catch a hope, called \textit{Riemann-Lebesque lemma}, stating $a_k(f)$ and $b_k(f)$ have to converge to zero. \paragraph{}
+    To prove this lemma we use \textit{Bessel's Inequality}.
 
 
-\begin{theorem}[Bessel's Inequality]
-Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}^{\infty}|a_k(f)|^2 + |b_k(f)|^2$ converges. Moreover, the inequality below holds:
+\begin{theorem}[Bessel's Inequality]\label{bassel inequality}
+Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}^{\infty}a_k(f)^2 + b_k(f)^2$ converges. Moreover, the inequality below holds:
 \begin{equation}
-    \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx \geq \frac{a_0^2}{2} + \sum_{n=1}^{\infty} \left(a_n^2 + b_n^2\right).
+    \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx \geq \frac{a_0(f)^2}{2} + \sum_{n=1}^{\infty} \left(a_n(f)^2 + b_n(f)^2\right).
 \end{equation}
 \end{theorem}
 
@@ -643,20 +678,20 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
  To prove this theorem, we need a lemma.
 
 
- \begin{lemma}
+ \begin{lemma}\label{lemma needed to prove basels inequality}
      If $f: \mathbb{R} \to \mathbb{R}$ is integrable on $[-\pi, \pi]$, then,
      \begin{equation}
      \begin{aligned}
          \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx
-         &= \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 +
-         b_n^2\right)\\
+         &= \frac{a_0(f)^2}{2} + \sum_{n=1}^{N} \left(a_n(f)^2 +
+         b_n(f)^2\right)\\
          &=  \frac{1}{\pi} \int_{-\pi}^{\pi} |S_Nf(x)|^2  dx
      \end{aligned}
      \end{equation}
  \end{lemma}
 
 
- \begin{proof}[Proof of lemma]
+ \begin{proof}
  First equality is coming from the definition of Fourier coefficients, the second one is the job of orthogonalities we gave at the very beginning.
  \[
  \begin{aligned}
@@ -669,20 +704,20 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
          b_n^2\right)\\
  \end{aligned}
  \]
- Second equality follows from similar expansions and using orthogonalities.
+ Second equality follows from similar expansions and using orthogonalities. \qedhere
 
  \end{proof}
 
 
-    Now we can prove the theorem. Altough proving the inequality also proves the convergence, it is a genious proof. We shall give a more "natural" proof for convergence.
+    Now we can prove the theorem. Altough proving the inequality also proves the convergence, it is a ingenious proof. We shall give a more "natural" proof for convergence.
 
 
-    \begin{proof}
-        Let us first prove the convergence. Let $M$ be the $\frac{\sup(f)}{\pi}$
+    \begin{proof}[Proof of Theorem \ref{bassel inequality}]
+        Let us first prove the convergence. Let $M \coloneqq sup(f)/{\pi}$
         \[
         \begin{aligned}
-            (\frac{a_0(f)f}{2} + \sum_{n=1}^{N} \left(a_n(f)f +
-         b_n(f)f\right))
+            (\frac{a_0(f)^2}{2} + \sum_{n=1}^{N} \left(a_n(f)^2 +
+         b_n(f)^2\right))
          &=  \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx \\
          &\leq M \int_{-\pi}^{\pi}S_Nf(x) \, dx \\
          &\leq M \int_{-\pi}^{\pi}(\frac{1}{\pi} \int_{-\pi}^{\pi}f(x-t)D_N(t)dt) \, dx \\
@@ -698,44 +733,41 @@ Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is int
         \[
         \begin{aligned}
             0
-            &\leq \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)-S_Nf(x)| \, dx \\
-            &= \frac{1}{\pi} \int_{-\pi}^{\pi}|f|^2 - \left( \frac{a_0^2}{2} + \sum_{n=1}^{N} \left(a_n^2 + b_n^2\right) \right) \quad \text{(three equivalences in the lemma)}
+            &\leq \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)-S_Nf(x)|^2 \, dx \\
+            &= \frac{1}{\pi} \int_{-\pi}^{\pi}|f|^2 - \left( \frac{a_0(f)^2}{2} + \sum_{n=1}^{N} \left(a_n(f)^2 + b_n(f)^2\right) \right) \quad \text{(three equivalences in the Lemma \ref{lemma needed to prove basels inequality})}
         \end{aligned}
         \]
         Since $N$ is arbitrary, we can take the limit and we are done.
     \end{proof}
 
 
-We can state now the famous \emph{Riemann-Lebesque Lemma} as a corollary of the series $\sum_{n=1}^{\infty} \left(a_n^2(f) + b_n^2(f)\right)$ being convergent.
+We can state now the famous \emph{Riemann-Lebesque lemma} as a corollary of the series $\sum_{n=1}^{\infty} \left(a_n^2(f) + b_n^2(f)\right)$ being convergent.
 
 
-\begin{corollary}[Riemann-Lebesque Lemma]
+\begin{corollary}[Riemann-Lebesque lemma] Let $f(x)$ be an integrable function defined on the interval $[-\pi, \pi]$. Then,
     \[
     \lim_{N \to \infty}a_k(f) = \lim_{N \to \infty}b_k(f) = 0.
     \]
 \end{corollary}
 
 
-Our next major result is the \textit{Parseval's identity}, when $f$ is continuous and periodic, the \textit{Bessel's inequality} actually becomes an equality. To prove that important theorem, we first give a lemma stating $S_Nf$s are the best approximation for $f$ in the following unusual sense\footnotemark{}.
-
-
-\footnotetext{In measure theory, this lemma tells $||f-S_Nf||_2 \leq ||f-T_N||_2$}
+Our next major result is the \textit{Parseval's identity}, when $f$ is continuous and periodic, the \textit{Bessel's inequality} actually becomes an equality. To prove that important theorem, we first give a lemma stating $S_Nf$'s are the best approximation for $f$ in the following unusual sense.
 
 
 \begin{lemma}
     Given any trigonometric polynomial $T_N$,
     \[
-    \frac{c_0}{2} + \sum_{n=1}^{N} (c_n + d_n)
+    T_N = \frac{c_0}{2} + \sum_{n=1}^{N} (c_n + d_n) \text{, $N \in \NN$,}
     \]
-    The following inequality holds where $f$ is periodic and integrable:
+    and $f$ periodic and integrable, the following inequality holds,
     \[
-    \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - S_Nf\right|^2 \leq \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - T_N\right|^2
+    \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - S_Nf\right|^2 \leq \frac{1}{\pi} \int_{-\pi}^{\pi}\left| f - T_N\right|^2.
     \]
 \end{lemma}
 
 
 \begin{proof}
-    We will use (6).
+    We will use Lemma \ref{lemma needed to prove basels inequality}.
     \[
     \begin{aligned}
         \int_{-\pi}^{\pi}\left| f - T_N\right|^2
@@ -747,17 +779,17 @@ Our next major result is the \textit{Parseval's identity}, when $f$ is continuou
         + 2 \int_{-\pi}^{\pi}  (f - S_Nf)(S_Nf - T_N)  \quad(\ast)
     \end{aligned}
     \]
-    We claim that the last term is zero. Indeed,
+    We claim that the last term is zero. Indeed, by Lemma \ref{lemma needed to prove basels inequality} we get,
     \[
     \begin{aligned}
         \frac{1}{\pi}\int_{-\pi}^{\pi}  (f - S_Nf)(S_Nf - T_N)
-        &= \frac{1}{\pi} \int_{-\pi}^{\pi}  (fS_Nf - S_Nf^2) + \frac{1}{\pi} \int_{-\pi}^{\pi} (-fT_N + S_NfT_N) \quad \text{(first term is zero, (6))}\\
+        &= \frac{1}{\pi} \int_{-\pi}^{\pi}  (fS_Nf - S_Nf^2) + \frac{1}{\pi} \int_{-\pi}^{\pi} (-fT_N + S_NfT_N) \quad \\
         &= \frac{1}{\pi} \int_{-\pi}^{\pi} -fT_N + \frac{1}{\pi} \int_{-\pi}^{\pi}  S_NfT_N\\
-        &= -\left( \frac{a_0(f)c_0}{2} + \sum_{j=1}{N}a_j(f)c_j + b_j(f)d_j\right) \\
-        &+ \left( \frac{a_0(f)c_0}{2} + \sum_{j=1}{N}a_j(f)c_j + b_j(f)d_j\right) = 0
+        &= -\left( \frac{a_0(f)c_0}{2} + \sum_{j=1}^{N}a_j(f)c_j + b_j(f)d_j\right) \\
+        &+ \left( \frac{a_0(f)c_0}{2} + \sum_{j=1}^{N}a_j(f)c_j + b_j(f)d_j\right) = 0,
     \end{aligned}
     \]
-    Hence, by $(\ast)$ proof is done.
+    hence, by $(\ast)$ the proof is done.
 \end{proof}
 
 
@@ -767,16 +799,16 @@ We can now proceed to our next major result, a famous identity by Parseval.
 \begin{theorem}[Parseval's identity]\footnotemark{}
     If $f$ is continuous and periodic, then,
         \begin{equation}
-            \frac{a_0^2}{2} + \sum_{n=1}^{\infty} \left(a_n^2 + b_n^2\right) = \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx.
+            \frac{a_0(f)^2}{2} + \sum_{n=1}^{\infty} \left(a_n(f)^2 + b_n(f)^2\right) = \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx.
         \end{equation}
 \end{theorem}
 
 
-\footnotetext{This theorem is used to prove one of the most beautiful formulas in mathematics, namely \textit{Bassel problem}. If we set $f(x) = x$ (and restrict it to be periodic) then we get the famous equality: $\sum_{k=1}^{\infty}\frac{1}{k^2} = \frac{\pi^2}{6}$.}
+\footnotetext{This theorem is used to prove one of the most beautiful formulas in mathematics, namely \textit{Basel Problem}. If we set $f(x) = x$ (and restrict it to be periodic) then we get the famous equality: $\sum_{k=1}^{\infty}\frac{1}{k^2} = \frac{\pi^2}{6}$.}
 
 
 \begin{proof}
-    We use \textit{Fejer theorem} and interchangibility of limit and integral in the case of uniform convergence.
+    We use \textit{Fejer theorem} and the interchangibility of limit and integral in the case of uniform convergence.
     \[
     \begin{aligned}
         \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx
@@ -787,31 +819,31 @@ We can now proceed to our next major result, a famous identity by Parseval.
         &= \lim_{N \to \infty}  \sum_{k=0}^{N} \left( \frac{1}{\pi} \int_{-\pi}^{\pi}(1 - \frac{k}{N+1}) fa_k(f)\cos(kx) + fb_k(f)\sin(kx)\, dx \right)\\
         &= \lim_{N \to \infty}  \sum_{k=0}^{N} \left((1 - \frac{k}{N+1}) a_k(f)^2 + b_k(f)^2 \right)\\
         &=   \sum_{k=0}^{N} \lim_{N \to \infty}\left((1 - \frac{k}{N+1}) a_k(f)^2 + b_k(f)^2 \right)\\\
-        &=   \sum_{k=0}^{N}  a_k(f)^2 + b_k(f)^2 \\
+        &=   \sum_{k=0}^{N}  a_k(f)^2 + b_k(f)^2. \qedhere
     \end{aligned}
     \]
 \end{proof}
 
 
-The Riemann-Lebesgue Lemma can be improved if f is smooth and periodic. In
-fact, the following result shows that the smoother f is, the more rapidly its Fourier
+The Riemann-Lebesgue Lemma can be improved if $f$ is smooth and periodic. In
+fact, the following result shows that the smoother $f$ is, the more rapidly its Fourier
 coefficients converge to zero.
 
 
 \begin{theorem}\label{growth of coefficients in C^j}
 
-    Let $f$ be a real valued function and $j \in \mathbb{N}$. If $f^{(j)}$ exists and integrable on $[-\pi,\pi]$ and $f^{(l)}$ is periodic for each $0 \leq l < j$, then
+    Let $f$ be a real valued function and $j \in \mathbb{N}$. If $f^{(j)}$ exists and is integrable on $[-\pi,\pi]$ and $f$ is periodic, then,
     \begin{equation}
-        \lim_{k \to \infty} k^j a_k(f) = \lim_{k \to \infty} k^j b_k(f) = 0
+        \lim_{k \to \infty} k^j a_k(f) = \lim_{k \to \infty} k^j b_k(f) = 0.
     \end{equation}
 \end{theorem}
 
 
-This theorem does not only tell us how fast the coefficients but also gives an important result for the convergence of \textit{second degree good} (class $C^2$-periodic) functions. But as we are in a mathematics document, let's give first the proof.
+This theorem does not only tell us how fast the coefficients converges to 0 but also gives an important result for the convergence of \textit{second degree good} (class $C^2$-periodic) functions. But as we are in a mathematics document, let's give first the proof.
 
 
 \begin{proof}[Proof idea.]
-    Our strategy is to find make the expression $k^ja_k(f)$ a Fourier coefficient of another function and then apply the \emph{Riemann-Lebesque lemma}. We find that the required function is $f^{(j)}$ and rest of the proof follows from integration by parts and $f^{(l)}(-\pi)\cos(-k\pi)$ being equal to $f^{(l)}(\pi)\cos(k\pi)$ by periodicity.
+    Our strategy is to make the expression $k^ja_k(f)$ a Fourier coefficient of another function and then apply the \emph{Riemann-Lebesque lemma}. We find that the the required function is $f^{(j)}$ and the rest of the proof follows from integration by parts and $f^{(l)}(-\pi)\cos(-k\pi)$ being equal to $f^{(l)}(\pi)\cos(k\pi)$ by periodicity.
 \end{proof}
 
 
@@ -819,16 +851,27 @@ Now, we will use this theorem to prove a convergence fact.
 
 
 \begin{corollary}\label{C^2 converges}
-    If $f: \RR \to \RR$ belongs to $\cC^2(\RR) $ and $f, f^{'}$ are periodic, then $Sf$ converges to $f$ uniformly and absolutely on $\RR$.
+    If $f: \RR \to \RR$ belongs to $\cC^2(\RR) $ and $f, f^{'}$\footnotemark{} are periodic, then $Sf$ converges to $f$ uniformly and absolutely on $\RR$.
 \end{corollary}
 
 
+\footnotetext{Actually the assumption $f^'$ being periodic is not necessary here but I wanted to keep that to remind readers this unnecessariness.}
+
+
+
 \begin{proof}
-    By the theorem, for sufficiently large $n$, $a_n(f), b_n(f) < \frac{1}{n^2}$. Hence, $S_N(f) <  \frac{a_0}{2} + \sum_{n=1}^{\infty} \left(a_n + b_n\right) < \infty$. Therefore the series converge absolutely. For the uniform convergence, we use \textit{Fejer theorem} and convergence of $S_Nf$ to the same value with $\sigma_N f$.
+    By the previous theorem, for sufficiently large $n$ and a real constant $C$, $a_n(f), b_n(f) < \frac{C}{n^2}$, hence
+
+    
+    \[
+    S_N(f) |\leq  \frac{|a_0(f)|}{2} + \sum_{n=1}^{\infty} \left(|a_n(f)| + |b_n(f)|\right) < \infty.
+    \]
+    
+    Therefore the series converge absolutely. For the uniform convergence, we use \textit{Fejer theorem} and convergence of $S_Nf$ to the same value with $\sigma_N f$.
 \end{proof}
 
 
-We want to make the assumptions of theorems as less as possible. In this quest, a new class of \emph{well-behaving} functions should be defined: \emph{functions of bounded variations.} 
+We want to make the assumptions of theorems as weak as possible. In this quest, a new class of \emph{well-behaving} functions should be defined: \emph{functions of bounded variations.} 
 
 
 After defining and some investigation on this new class, we will give a theorem on the growth of the coefficients of these kinds of functions.
@@ -844,22 +887,17 @@ In this part, we will deal with the functions that do not wiggle too much\footno
 
 
 \begin{definition}
-    Let $\phi : [a,b] \to \RR$ and $P = \{x_0, \dots, x_n\} \in IP[a,b]$.
-\footnotemark{}
-
-
-\footnotetext{Interval partitions of $[a,b]$}
-
+    Let $\phi : [a,b] \to \RR$ and $P = \{x_0, \dots, x_n\}$ be an interval partition of $[a,b]$.
 
 Set
 \[
-V(\phi,P) = \sum_{k=0}^{n-1}|\phi(x_{k+1}) - \phi(x_{k})|
+V(\phi,P) = \sum_{k=0}^{n-1}|\phi(x_{k+1}) - \phi(x_{k})|.
 \]
 The \emph{variation} of $\phi$ is defined as
 \begin{equation}
     Var(\phi) \coloneqq \sup\{V(\phi,P)| P \in IP[a,b]\}
 \end{equation}
-$\phi$ is said to be \emph{of bounded variation} if $Var(\phi) < \infty$. \footnotemark{}\footnotetext{This definition is the analogue of \textit{rectifiable} in \textit{Vector analysis}.}
+$\phi$ is said to be \emph{of bounded variation} if $Var(\phi) < \infty$. \footnotemark{}\footnotetext{This definition is the analogue of \textit{rectifiable} in \textit{Vector Analysis}.}
 \end{definition}
 
 
@@ -875,13 +913,13 @@ We will give some facts on this class of functions without proofs. For details, 
 \end{remark}
 
 
-\begin{remark}
-     $f$ is of bounded variation on $[a,b]$ iff there exists two monotone functions $h,g$ such that $f = h - g$.
-\end{remark}
+\begin{theorem}
+     $f$ is of bounded variation on $[a,b]$ if and only if there exists two monotone functions $h,g$ such that $f = h - g$.
+\end{theorem}
 
 
 \begin{corollary}\label{facts on bounded var.}
-    Because of monotonicity, following assertions are true when $f$ is of bounded variations:
+    Because of monotonicity, the following assertions are true when $f$ is of bounded variations:
     \begin{itemize}
         \item[(a)] For each \(x \in [a, b)\), \(f(x+)\) exists, and for each \(x \in (a, b]\), \(f(x-)\) exists.
         \item[(b)] $f$ has no more than countably many points of discontinuity in $[a,b]$.
@@ -890,7 +928,7 @@ We will give some facts on this class of functions without proofs. For details, 
 \end{corollary}
 
 
-Now, we return to our original topic, \emph{Fouier series}. We saw that if $f$ is of class $\cC^1$, then $ka_k(f)$ approach to zero (see \ref{growth of coefficients in C^j}). It is natural to ask that what happens in a more general case, functions of bounded variations (for being general, see \ref{bounded var. implications}). Let's first try an informal (of course for a mathematician's standarts) calculation to approximate the bound. With the help of Riemann sums, Mean value theorem and $\sin(kx_0) = \sin(kx_n) = 0$, we can make the following approximation:
+Now, we return to our original topic, \emph{Fouier series}. We saw that if $f$ is of class $\cC^1$, then $ka_k(f)$ approaches to zero (see Theorem \ref{growth of coefficients in C^j}). It is natural to ask that what happens in a more general case, functions of bounded variations (for being general, see Remark \ref{bounded var. implications}). Let's first try an informal (of course for a mathematician's standards) calculation to approximate the bound. With the help of Riemann sums, the Mean Value Theorem and $\sin(kx_0) = \sin(kx_n) = 0$, we can make the following approximation:
 \[
 \begin{aligned}
     \pi a_k(f) = \int_{-\pi}^{\pi}f(x) \cos(kx) dx &\approx \sum_{i = 1}^{n}f(x_i)\cos(kx_i)(x_{i+1} - x_i)\\
@@ -898,33 +936,80 @@ Now, we return to our original topic, \emph{Fouier series}. We saw that if $f$ i
     &= \frac{1}{k} \sum_{i = 1}^{n}(f(x_{i+1}) - f(x_i)) \sin(kx_i)\\
 \end{aligned}
 \]
-Since the absolute value of the last sum is bounded by $Var(f)$, we make the claim $|ka_k(f)| < \frac{Var(f)}{\pi}$. This claim can easily be proven with integration by parts, Fundamental Theorem and periodicity if $f$ is increasing, periodic and differentiable. But we do not stop here and prove for more general case:
+Since the absolute value of the last sum is bounded by $Var(f)$, we make the claim $|ka_k(f)| < \frac{Var(f)}{\pi}$. This claim can easily be proven with integration by parts, Fundamental Theorem of Calculus and periodicity if $f$ is increasing, periodic and differentiable. But we do not stop here and prove for more general case:
 
 
 \begin{lemma}\label{bounded var. coefficient grow}
-    Suppose that $f,\phi$ are periodic where $f$ is of bounded variation and $\phi$ is continuously differentiable. If $M \coloneqq \sup{|\phi|}$, then
+    Suppose that $f,\phi$ are periodic where $f$ is of bounded variation and $\phi$ is continuously differentiable on $[-\pi,\pi]$. If $M \coloneqq \sup{|\phi|}$, then
     \begin{equation}
-        \left|\int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| \leq M Var(f)
+        \left|\int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| \leq M Var(f).
     \end{equation}
 \end{lemma}
 
 
 \begin{proof}
-    Later
+    Standard approach towards proving this lemma would be using the definition of Riemann integral to approximate the integral. First attempt will show that this \emph{naive} approach does not work. We do (not me) a clever trick by partitioning the interval not to $n$ pieces but to $2n$ pieces. Here we go.\\
+    We chose a partition $P = \{x_0, x_1, \dots , x_{2n}\}$ of $[-\pi,\pi]$ such that
+    \[
+w, c \in [x_{i-1}, x_i] \text{ implies } |\phi^{\prime}(w) - \phi^{\prime}(c)| < \epsilon,
+\] 
+which is possible by uniform continuity of $\phi^{\prime}$, and 
+\begin{equation}\label{equation*}
+    \left| \sum_{j=1}^{2n} f(w_j)\phi^{\prime}(w_j)(x_j - x_{j-1}) - \int_{-\pi}^{\pi}f(x)\phi^{\prime}(x)dx\right| < \epsilon,
+\end{equation}
+
+    for any choice of $w_j \in [x_{j-1},x_j]$. Set
+\[
+A \coloneqq \sum_{j=1}^{2n} f(w_j)(\phi(w_j) - \phi(w_{j-1})),
+\]
+
+where $w_j = x_j$ when $j$ is even, $w_j = x_{j-1}$ when $j$ is odd. By Mean Value Theorem, choose $c_j \in [x_{j-1},x_j]$ such that $(\phi(x_j) - \phi(x_{j-1})) = \phi^{\prime}(c_j)(x_j - x_{j-1})$. By this choice $A$ becomes
+
+\[
+A = \sum_{j=1}^{2n} f(w_j)\phi^{\prime}(c_j)(x_j - x_{j-1}).
+\]
+
+    By our choice of the partition $P$ and Inequality \ref{equation*}, it follows that
+\[
+\begin{aligned}
+    \left| A - \int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| 
+    &\leq \left| A - \sum_{j=1}^{2n} f(w_j)\phi^{\prime}(w_j)(x_j - x_{j-1})\right| \\
+    &+ \left|\sum_{j=1}^{2n} f(w_j)\phi^{\prime}(w_j)(x_j - x_{j-1}) - \int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| \\
+    &< C \epsilon 
+\end{aligned}
+\]
+where $C$ is a real constant. Applying triangle inequality to this result gets us to
+
+\begin{equation}\label{equation**}
+    \left|\int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| < |A| + C\epsilon.
+\end{equation}
+
+
+On the other hand, by our choice of $w_j$'s,
+
+\[
+A = \sum_{j=1}^{n}\phi(x_{2j-1})(f(x_{2j-2}) - f(x_{2j})) + \sum_{j=1}^{n}(f(x_{2j})\phi(x_{2j}) - f(x_{2j-2})\phi(x_{2j-2})).
+\]
+By periodicity, this last sum telescopes to 0. Combining (\ref{equation*}) and (\ref{equation**}) and the last equality, we get,
+
+\[
+\left|\int_{-\pi}^{\pi}f(x)\phi'(x)dx\right| \leq M Var(f) + K\epsilon,
+\]
+where $K$ is another constant. Since $\epsilon$ was arbitrary we conclude our proof.
 \end{proof}
+
 
 
 Now we can link this to Fourier series.
 \begin{theorem}\label{growth of ceof. of bdd. var.}
     If $f$ is periodic and of bounded variation, then
     \[
-    |ka_k(f)|\leq \frac{Var(f)}{\pi}  \text{ and }  |kb_k(f)| \leq \frac{Var(f)}{\pi}
+    |ka_k(f)|\leq \frac{Var(f)}{\pi}  \text{ and }  |kb_k(f)| \leq \frac{Var(f)}{\pi} \text{, for all $k \in \NN$.}
     \]
-    $\forall k \in \NN$.
 \end{theorem}
 
 
-Proof immediately follows from \ref{bounded var. coefficient grow} with the choice $\phi = \cos(kx)$. Now, we have concluded our discussion of bounded variation for this section. Before jumping into the next section, we will see some important remarks which are either corollaries of the results above or equivalent versions of them.
+Proof immediately follows from Lemma \ref{bounded var. coefficient grow} with the choice $\phi = \cos(kx)$. Now, we have concluded our discussion of bounded variation for this section. Before jumping into the next section, we will see some important remarks which are either corollaries of the results above or equivalent versions of them.
 
 
 \begin{theorem}\label{alternative riemann-lebesque lemma}
@@ -935,40 +1020,36 @@ Proof immediately follows from \ref{bounded var. coefficient grow} with the choi
 \end{theorem}
 
 
-This theorem tells us to use \emph{Riemann - Lebesque lemma}. But we will also give an independent proof to see that this theorem is actually equvalent to the lemma.
+This theorem tells us to use \emph{Riemann - Lebesque lemma}. But we will also give an independent proof to see that this theorem is actually equivalent to the Riemann - Lebesque lemma.
 
 
 \begin{proof}[Proof by \textit{Riemann - Lebesque lemma}]
-    Expand $\cos((k+\alpha)x)$ and then apply the lemma.
+    Expand $\cos((k+\alpha)x)$ and then apply the Riemann - Lebesque lemma.
 \end{proof}
 
 
-\begin{proof}\cite{Measure}\footnotemark{}
-
-\footnotetext{The body of the proof is taken from \cite{Measure}}
-
-
-    We will just prove the case $\alpha = 0$ and leave the rest ($\alpha \neq 0$ and the other coefficient $b_k(f)$) as an exercise. Via a change of variables ($x = u + \frac{\pi}{k}$) we get
+\begin{proof}\footnotemark{} We will just prove the case $\alpha = 0$ and leave the rest ($\alpha \neq 0$ and the other coefficient $b_k(f)$) as an exercise. Via a change of variables ($x = u + \frac{\pi}{k}$) we get
+    \footnotetext{The body of the proof is taken from \cite{Measure}}
 %
 %ask that part
 %could not use intertext to make it all in aligned
     \[
     \begin{aligned}
         a_k \coloneqq \int_{-\pi}^{\pi}f(x)\cos(kx) dx &= \int_{-\pi}^{\pi}f(u + \frac{\pi}{k})\cos(ku + \pi) du\\
-        &= - \int_{-\pi}^{\pi}f(u + \frac{\pi}{k})\cos(ku) du\\
+        &= - \int_{-\pi}^{\pi}f(u + \frac{\pi}{k})\cos(ku) du,\\
         \end{aligned}
     \]
-        by using the fact $|\cos(kx)| < 1$we get
+        by using the fact $|\cos(kx)| \leq 1$ we get
     \[
-        \int_{-\pi}^{\pi}|f(u + \frac{\pi}{k}) - f(u)|du \geq \left|\int_{-\pi}^{\pi}(f(u + \frac{\pi}{k}) - f(u))\cos(ku)du\right| = 2|a_k|
+        \int_{-\pi}^{\pi}|f(u + \frac{\pi}{k}) - f(u)|du \geq \left|\int_{-\pi}^{\pi}(f(u + \frac{\pi}{k}) - f(u))\cos(ku)du\right| = 2|a_k|.
     \]
 All we need to do is to show that the first integral converges to zero.\footnotemark{}
 
 
- \footnotetext{This is most easily done by \emph{General Weierstrass Approximation Theorem} stating for every (Lebesque) integable function $f$ there exists a continuous function in the $\epsilon$-neighbourhood of $f$.}
+ \footnotetext{This is most easily done by a theorem stating for every (Lebesque) integrable function $f$ there exists a continuous function in the $\epsilon$-neighbourhood of $f$.}
 
 
-From measure theory, we know that if a function is (Riemann) integrable, then it has at most countably many discontinuities. We also know that countably many values do not contribute to integral, therefore what forms the value of the integral is the points where $f$ is continuous at. At these points, $f(x + \frac{\pi}{k}) \to f(x)$ as $k \to \infty$, hence, $|a_k|$ goes to zero.
+From measure theory, we know that if a function is (Riemann) integrable, then the set of its discontinuities is of Lebesque-measure 0. We also know that null sets do not contribute to integral, therefore what forms the value of the integral is the points where $f$ is continuous at. At these points, $f(x + \frac{\pi}{k}) \to f(x)$ as $k \to \infty$, hence, $|a_k|$ goes to zero. \qedhere
 
 
 
@@ -979,7 +1060,7 @@ The following remark shows a useful application of Fourier series to approximate
 
 
 \begin{remark}
-    If $f: \RR \to \RR$ belongs to $\cC^\infty(\RR)$ and $f^{(j)}$ is periodic for all $j \geq 0$, then $Sf$ is term-by-term differentiable on $\RR$. In fact,
+    If $f: \RR \to \RR$ belongs to $\cC^\infty(\RR)$ and $f^{(j)}$ is periodic for $j = 0$, then $Sf$ is term-by-term differentiable on $\RR$. In fact,
 \[
 \frac{\de ^jf}{{\de x}^j}(x) = \sum_{k = 1}^{\infty} \frac{\de ^j}{{\de x}^j}(a_k(f)\cos(kx) + b_k(f)\sin(kx))
 \]
@@ -987,29 +1068,29 @@ The following remark shows a useful application of Fourier series to approximate
 
 
 
-    We can convince ourselves as such: By the fact (\ref{C^2 converges}), $Sf$ converges absolutely and uniformly. A theorem\footnotemark{}
+    We can convince ourselves as such: By Corollary \ref{C^2 converges}, $Sf$ converges absolutely and uniformly. A theorem\footnotemark{}
     from the branch \emph{series of function} gives us the necessary argument to claim that equality holds for every bounded $E \subset \RR$.
 
 
     \footnotetext{Check the related parts of \cite{Wade} for more information. }
 
 
-Next remark can be used to give a different proof \emph{Riemann-Lebesque lemma} for continuous functions.
+The next remark can be used to give a different proof \emph{Riemann-Lebesque lemma} for continuous functions.
 
 
 \begin{remark}
-    Let $f: \RR \to \RR$ be a continuous and periodic function. The \emph{Modulus of continuity} is defined as
+    Let $f: \RR \to \RR$ be a continuous and periodic function. The \emph{modulus of continuity} is defined as, for $\delta > 0$,
     \[
-    \omega(f, \delta) \coloneqq sup_{|h| < \delta}|f(t+h) - f(t)|
-    \] The following assertians hold.
+    \omega(f, \delta) \coloneqq \sup_{|h| < \delta}|f(t+h) - f(t)|.
+    \] The following assertions hold.
     \begin{itemize}
-        \item[(i)] $a_k(f) = \frac{1}{2\pi}  \int_{-\pi}^{\pi} (f(u) - f(u + \frac{\pi}{k}))\cos(kx)dx$
-        \item[(ii)] $|a_k(f)| \leq \omega(f, \frac{\pi}{k})$ and $|b_k(f)| \leq \omega(f, \frac{\pi}{k})$
+        \item[(i)] $a_k(f) = \frac{1}{2\pi}  \int_{-\pi}^{\pi} (f(u) - f(u + \frac{\pi}{k}))\cos(kx)dx$.
+        \item[(ii)] $|a_k(f)| \leq \omega(f, \frac{\pi}{k})$ and $|b_k(f)| \leq \omega(f, \frac{\pi}{k})$.
     \end{itemize}
 \end{remark}
 
 
-Proof can be done via the technique in (\ref{alternative riemann-lebesque lemma}) and approximations of integrals. Since $f$ is continuous, modulus of convergence converges to zero as $k \to \infty$, hence, the coefficients converge to zero for continuous functions.
+Proof can be done via the technique in the Theorem \ref{alternative riemann-lebesque lemma} and approximations of integrals. Since $f$ is continuous, modulus of convergence converges to zero as $k \to \infty$, hence, the coefficients converge to zero for continuous functions.
 
 
 \par Now we have necessary tools to deal with the big \emph{Convergence Question!}
@@ -1023,26 +1104,26 @@ In this section, we will show that under certain conditions a summable series mu
 
 
 \begin{theorem}[Tauberian]
-    Let $a_k \geq 0$ and $L \in \RR$. If series is Ceasaro summable to $L$, then
+    Let $a_k \geq 0$ and $L \in \RR$. If the series $\sum_{k=0}^{\infty} a_k$ is Ceasaro summable to $L$, then it converges to $L$,
     \[
-    \sum_{k=0}^{\infty} a_k = L
+    \sum_{k=0}^{\infty} a_k = L.
     \]
 \end{theorem}
 
 
 \begin{proof}
-    We notice that  $(1-\frac{k}{n})a_k \leq a_k \leq 2(1-\frac{k}{n})a_k$. We add first $n$ terms and get
+    We notice that  $(1-\frac{k}{n})a_k \leq a_k \leq 2(1-\frac{k}{2n})a_k$. We add first $n$ terms and get
     \[
-    \sigma_n \leq S_n \leq 2 \sigma_2n
+    \sigma_n \leq S_n \leq 2 \sigma_{2n}
     \]
     The rest is the job of \textit{Sandwich theorem}.
 \end{proof}
 
 
 \begin{proof}[Alternative proof from \cite{Wade}]
-    It will be sufficient by (\ref{convergence to the same value to the summable limit}) to show that series converges Assume to the contrary that it diverges. Since all terms are non-negative, for every $M > 0$, there exists $n_0 \in \NN$ such that for $n > n_0$, $S_n > M$. Take $ N > n_0$
+    It will be sufficient by the Lemma \ref{convergence to the same value to the summable limit} to show that the series converges. Assume to the contrary that it diverges. Since all terms are non-negative, for every $M > 0$, there exists $n_0 \in \NN$ such that for $n > n_0$, $S_n > M$. Take $ N > n_0$,
     \[
-    \sigma_N = \frac{S_0 + \dots + S_{n_0}}{N+1} + \frac{S_{n_0 + 1} + \dots + S_{N}}{N+1} \geq 0 + \frac{N-n_0}{N+1}M
+    \sigma_N = \frac{S_0 + \dots + S_{n_0}}{N+1} + \frac{S_{n_0 + 1} + \dots + S_{N}}{N+1} \geq 0 + \frac{N-n_0}{N+1}M.
     \]
     Taking the limits of both sides yields $L > M$ for every $M > 0$. Contradiction.
 \end{proof}
@@ -1054,21 +1135,21 @@ We can use this result to improve \emph{Riemann - Lebesque lemma} for certain fu
 \begin{corollary}
     Let $f$ be periodic on $\RR$ and integrable. If $a_k(f) = 0$ and $b_k(f) \geq 0$, then
     \[
-    \sum_{k=1}^{\infty}\frac{b_k(f)}{k} < \infty
+    \sum_{k=1}^{\infty}\frac{b_k(f)}{k} < \infty.
     \]
 \end{corollary}
 
 
 \begin{proof}
-    The convergent series looks like a Fourier series of a function, say $F$. If we also find that $F$ is continuous, then we can combine \textit{Fejer} and \textit{Tauberian} and get the convergence. The division by $k$ gives us a hint, therefore we guess
+    The convergent series looks like a Fourier series of a function, say $F$. If we also find that $F$ is continuous, then we can combine \textit{Fejer theorem} and \textit{Tauberian theorem} and get the convergence. The division by $k$ gives us a hint, therefore we guess
     \[
-    F(x) = \int_{0}^{x}f(t)dt
+    F(x) = \int_{0}^{x}f(t)dt.
     \]
     $F$ is continuous. Since $a_0(f) = 0$,  $F$ is also periodic. Integration by parts yields
     \[
     a_k(F) = \frac{b_k(f)}{k} \geq 0 \text{ and } b_k(F) = 0.
     \]
-    The series we investigate is $SF(0)$. By \emph{Fejer}, $\sigma_NF(0) \to F(0) = 0$. By \emph{Tauber}, the series converges.
+    The series we investigate is $SF(0)$. By \emph{Fejer theorem}, $\sigma_NF(0) \to F(0) = 0$. By \emph{Tauber theorem}, the series converges.
 \end{proof}
 
 
@@ -1076,11 +1157,11 @@ Now, we will show that the converse of the \emph{Riemann - Lebesque lemma} is fa
 
 
 \begin{example}
-    Terms of the series
+    The sequence of the terms of the series
     \[
     \sum_{k=2}^{\infty}\frac{\sin(kx)}{\log(k)}
     \]
-    converges to zero. But if it was a Fourier series of some function, then by the above corollary,
+    converges to zero. But if it were a Fourier series of some function, then by the above corollary,
     \[
     \sum_{k=2}^{\infty}\frac{1}{k\log(k)}
     \]
@@ -1101,21 +1182,30 @@ The following theorem is one of the deepest \emph{Tauberian type} results.
 \end{theorem}
 
 
-\begin{proof}\footnotemark{*?*}
+\begin{proof}
 
-
-\footnotetext{Symbols defined in \ref{notation}. Probably wrong but why?}
-
-
-    We try to write partial sums in terms of Cesaro sums:
-    \[
-    S_n = \sigma_n (n+1) - \sigma_{n-1} n
-    \]
-    For sufficiently large $n$, $\sigma_n$ is in $\epsilon$-neighborhood of $f$.
-    \[
-  f - \epsilon = (f-\epsilon)(n+1) -  (f+\epsilon)n < S_n = \sigma_n (n+1) - \sigma_{n-1} n < (f+\epsilon)(n+1) -  (f-\epsilon)n =  f + \epsilon
-    \]
-    Hence, $|S_n - f| < \epsilon$ meaning $S_n$ converges to $f$.
+Let $S_N$ and $\sigma_N$ be the partial sums and Cesaro means of the series $\sum_{k=0}^{\infty}f_k$. We define the \emph{delayed averages} $\sigma_{n,k}$ as 
+\[
+\sigma_{n,k} \coloneqq \frac{S_{n} + \dots + S_{n+k}}{k+1}
+\]
+for $n,k \in \NN$. We also have
+\[
+\begin{aligned}
+    |\sigma_{n,k} - S_n| 
+    &= \left| \sum_{j=n}^{n+k}\left( 1 - \frac{j-n}{k+1}\right)f_j\right| \\
+    &\leq \sum_{j=n}^{n+k}\left( 1 - \frac{j-n}{k+1}\right)|f_j| \\
+    &\leq M \sum_{j=n}^{n+k}\frac{1}{j} = \frac{M(k+1)}{n+1},           
+\end{aligned}
+\]
+which goes to zero as $n \to \infty$ for $k$ fixed. Since 
+\[
+\sigma_{n,k} = \left(1 + \frac{n-1}{k+1}\right)\sigma_{n+k} - \left(\frac{n-1}{k+1}\right)\sigma_{n}
+\]
+and $\sigma_n \to f$, we get $|\sigma_{n,k} - f|$ approaching to 0 as $n \to \infty$ for $k$ fixed. From these observations we get
+\[
+|S_n - f| \leq |S_n - \sigma_{n+k}| + |\sigma_n - \sigma_{n+k}|,
+\]
+which converges to 0 as $n \to \infty$ for $k$ fixed. \qedhere
 \end{proof}
 
 
@@ -1136,11 +1226,11 @@ We are now in a position to answer the big \emph{Convergence Question.}
 
 
 \begin{proof}
-    By (\ref{facts on bounded var.}), one sided limits exists and $f$ is integrable. Hence, assumptions of \emph{Fejer theorem} are satisfied and Cesaro sums converge the value at the right. By (\ref{growth of ceof. of bdd. var.}) we get
+    By Remark (\ref{facts on bounded var.}), one sided limits exists and $f$ is integrable. Hence, the assumptions of \emph{Fejer theorem} are satisfied and Cesaro sums converge the value at the right. By Theorem (\ref{growth of ceof. of bdd. var.}) we get
     \[
     |ka_k(f)|\leq \frac{Var(f)}{\pi}  \text{ and }  |kb_k(f)| \leq \frac{Var(f)}{\pi}
     \]
-    Hence, assumptions of (\ref{Hardy}) are satisfied. $S_Nf$ converge to the same value with Cesaro sums.
+    Hence, assumptions of Theorem (\ref{Hardy}) are satisfied. $S_Nf$ converge to the same value with Cesaro sums.
 \end{proof}
 
 
@@ -1160,52 +1250,31 @@ Hence pointwise convergence is proven. To show that the convergence might not be
 
 
 
-\begin{example}
-    \begin{enumerate}
-        \item[(a)]\footnotemark{}
+\begin{example} Let us give two examples to demonstrate the use of Dirichlet - Jordan theorem and the remark above.
+    \begin{itemize}
+        \item[(a)]\footnotemark{}Let us show that
 
         
         \footnotetext{This example also gives a function whose Fourier series converges to another function (for $x = \pi$)}
 
         
-        Show that
         \[
         x = 2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\sin(kx)
         \]
-        strictly pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
+        the convergence being strictly pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
 
 
-        \item[(b)] Show that
-        \[
-        |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum_{k=1}^{\infty}\frac{\cos(2k-1)x}{(2k-1)^2}
-        \]
-        uniformly on $[-\pi,\pi]$.
-
-
-        \item[(c)] Find a value for
-        \[
-        \sum_{k=1}^{\infty}\frac{1}{(2k-1)^2}
-        \]
-    \end{enumerate}
-\end{example}
+    It is not that difficult to see that the series at the right is the 
+Fourier series of the function at the left and $f(x) = x$ is continuous and of bounded variations. By Theorem \ref{Dirichlet - Jordan}, pointwise convergence on $(-\pi,\pi)$ and uniform convergence on any $[a,b] \subset (-\pi,\pi)$ is proven. The important part here is to show that the convergence on $(-\pi,\pi)$ is not uniform. Let us give a contradiction proof.
 
 
 
-We leave the \emph{strict pointwise} part to the end.
+If the convergence was uniform, then for all $\epsilon > 0$ we could find a $N_\epsilon \in \NN$ such that for all $N > N_\epsilon$,
 
 
-In the parts (a) and (b), it can be observed that the series at the right are
-Fourier series of the functions at the left. For the convergence part,
-we can use above remark for (a) and (\ref{Dirichlet - Jordan}) for part (b).
-To determine the value of (c), put $x=\pi$ in (b).
-
-
-Let us now show that the convergence in part (a) is strict (non-uniform). If the convergence was uniform, then for all $\epsilon > 0$ we could find a $N_\epsilon \in \NN$ such that for all $N > N_\epsilon$,
-
-
-\begin{equation}\label{not uniform}
+\begin{equation*}\label{not uniform}
     \left|x - 2\sum_{k=1}^{N}\frac{(-1)^{k+1}}{k}\sin(kx)\right| < \epsilon
-\end{equation}
+\end{equation*}
 
 
 
@@ -1216,6 +1285,16 @@ x - 2 \epsilon H_N = x - 2\sum_{k=1}^{N}\frac{1}{k}\epsilon \leq x - 2\sum_{k=1}
 
 
 where $H_N \coloneqq N\textit{th harmonic sum}$. Since $N$ is fixed, $H_N$ is a finite number and $\epsilon$ is arbitrarily small; the last term is greater than $\pi - 2 > 0$. Hence, for $x$'s near $\pi$, left term of the inequality will be larger than $\pi - 2$ which shows it cannot converge to 0. Uniform convergence is not possible. \qed
+
+        \item[(b)] Since $f(x) = |x|$ is continuous and periodic on $[-\pi,\pi]$, we can use Theorem \ref{Dirichlet - Jordan} and conclude that the series
+        \[
+        |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum_{k=1}^{\infty}\frac{\cos(2k-1)x}{(2k-1)^2}
+        \]
+        converges uniformly on $[-\pi,\pi]$. 
+    \end{itemize}
+\end{example}
+
+
 
 
 Unfortunately, here we need to end the journey.
@@ -1229,12 +1308,15 @@ We began these notes by defining Fourier series in the form of trigonometric ser
 
 \begin{thebibliography}{99}
 
-\bibitem{Measure} \textsc{M. Capinski, E. Kopp}, \textit{Measure, Integral and Probability}, Springer,
- 1994.
+\bibitem{Measure} \textsc{Capinski, M., Kopp, E.}, \textit{Measure, Integral and Probability}, Springer, 1994.
 
- \bibitem{History} \textit{N. Jacobs, K. P. Evans} \textit{The Historical Place of Fourier Analysis in Mathematics}, World Scientific, 2018
+\bibitem{History} \textsc{Jacobs, N., Evans, K. P.}, \textit{The Historical Place of Fourier Analysis in Mathematics}, World Scientific, 2018.
 
- \bibitem{Wade} \textsc{William R. Wade},  \textit{Introduction to analysis}, \textbf(2010).
+\bibitem{Wade} \textsc{Wade, W. R.}, \textit{Introduction to Analysis}, 2010.
+
+\bibitem{Wikipedia} \textsc{Wikipedia}, \textit{"Gibbs Phenomenon"}, Available at: \url{https://en.wikipedia.org/wiki/Gibbs_phenomenon}, 2023.
 
 \end{thebibliography}
+
 \end{document}
+
