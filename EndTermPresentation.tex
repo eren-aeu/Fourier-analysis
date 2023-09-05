@@ -1,0 +1,546 @@
+\documentclass{beamer}
+
+
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{animate}
+\usepackage[utf8]{inputenx} % For æ, ø, å
+\usepackage{babel}          % Automatic translations
+\usepackage{csquotes}       % Quotation marks
+\usepackage{microtype}      % Improved typography
+\usepackage{amssymb}        % Mathematical symbols
+\usepackage{mathtools}      % Mathematical symbols
+\usepackage[absolute, overlay]{textpos} % Arbitrary placement
+\setlength{\TPHorizModule}{\paperwidth} % Textpos units
+\setlength{\TPVertModule}{\paperheight} % Textpos units
+\usepackage{tikz}
+\usetikzlibrary{overlay-beamer-styles}  % Overlay effects for TikZ
+
+
+
+
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+% The following paragraph writes the equation numbers with two counters,
+% the first is the section number and the second resets within the section.
+\makeatletter
+\@addtoreset{equation}{section}
+\makeatother
+\renewcommand\theequation{\arabic{section}.\arabic{equation}}
+% The next paragraph defines macros for special roman letters to be used
+\newcommand{\CC}{{\mathbb C}} % the set of complex numbers
+\newcommand{\NN}{{\mathbb N}} % the set of natural numbers
+\newcommand{\QQ}{{\mathbb Q}} % the set of rational numbers
+\newcommand{\ZZ}{{\mathbb Z}} % the set of integer numbers
+\newcommand{\DD}{{\mathbb D}} % the unit disk
+\newcommand{\RR}{{\mathbb R}} % the set of real numbers
+\newcommand{\TT}{{\mathbb T}} % the unit circle (the one dimensional torus)
+% The next paragraph defines macros for caligraphic letters
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\cG}{{\mathcal G}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cK}{{\mathcal K}}
+\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cQ}{{\mathcal Q}}
+\newcommand{\cR}{{\mathcal R}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cW}{{\mathcal W}}
+\newcommand{\cZ}{{\mathcal Z}}
+
+\author{A. Eren Uyanık}
+\title{Classical Fourier Series}
+\subtitle{Mid-semester presentation}
+\newcommand{\univ}{Bilkent University}
+\newcommand{\advisor}{Aurelian Gheondea}
+
+
+
+\setbeamertemplate{title page}{%
+  \vspace{2cm}
+  \begin{center}
+    \usebeamerfont{title}\inserttitle\par
+    \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+    \vspace{1cm}
+    \usebeamerfont{author}\insertauthor\par
+    \vspace{0.5cm} % Adjust the spacing as needed
+    \usebeamerfont{institute}\univ\par % Add the university
+    \vspace{0.3cm} % Adjust the spacing as needed
+    \usebeamerfont{institute}\advisor\par % Add the advisor
+  \end{center}
+  \vfill
+}
+
+
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+
+
+
+\section{Overview}
+
+
+% Use
+%
+%     \begin{frame}[allowframebreaks]{Title}
+%
+% if the TOC does not fit one frame.
+\begin{frame}{Table of contents}
+    \tableofcontents[currentsection]
+\end{frame}
+
+
+\section{History and Motivation}
+
+
+
+\begin{frame}{History and Motivation}
+\small
+\begin{enumerate}
+    \item Propagation of heat. 
+    \item Birth of the definitions of ...
+    \begin{itemize}
+        \item Functions
+        \item Types of convergence (absolute, uniform, pointwise)
+        \item Riemann and Lebesque integrals
+        \item (Cantor's) Set theory
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+
+
+\section{Introduction}
+%\SectionPage
+
+
+\begin{frame}{Trigonometric Series}
+\small
+    \begin{definition}
+        A trigonometric series $S$ is defined as 
+        \[
+        S(x) = \frac{a_0}{2} +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
+        \]
+        Partial sums, $S_N$, are called as trigonometric polynomial.
+        
+    \end{definition}
+    \begin{definition}[Orthogonality]
+        Two (integrable) functions $f, g$ are called orthogonal if,
+        \[
+        \int_{-\pi}^{\pi}f.g = 0
+        \]
+    \end{definition}
+        
+\end{frame}
+\begin{frame}{Some Orthogonalities}
+\small
+    Before giving the definition of \textit{Fourier Series}, we give some useful identities.
+
+    \[
+    \int_{-\pi}^{\pi} \cos(mx)cos(nx) = \begin{cases} 
+                                        0 & m \neq n \\
+                                      \pi &  m = n \neq 0\\
+                                     2\pi & m = n = 0
+                                        \end{cases}
+    \]
+    \[
+    \int_{-\pi}^{\pi} \sin(mx)sin(nx) = \begin{cases} 
+                                        0 & m \neq n \\
+                                      \pi &  m = n \neq 0\\
+                                        0 & m = n = 0
+                                        \end{cases}
+    \]
+    \[
+    \int_{-\pi}^{\pi} \sin(mx)cos(nx) = 0  
+    \]
+\end{frame}
+\begin{frame}[shrink=9]{Fourier Series}
+\small
+    \begin{definition}
+        Let \(f\) be an integrable function on [$\pi, \pi$]. Then, Fourier series of \(f\), namely $S($\(f\)) is defined as
+    \[
+    S(f)(x) = \frac{a_0(f)}{2} +  \sum_{k = 1}^{\infty} (a_k(f)  \cos(kx) + b_k(f)  \sin(kx))
+    \]
+    where the coefficients $a_k(f)$ and $b_k(f)$ are defined as
+
+    \[
+    a_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \cos(kx)\,dx
+    \]
+    \[
+    b_k(f) = \frac{2}{\pi}\int_{-\pi}^{\pi} f(x) \sin(kx)\,dx
+    \]
+    \end{definition}
+
+    \begin{theorem}[Fourier]
+    If a trigonometric series 
+    \[
+    S := \frac{a_0}{2} +  \sum_{k = 1}^{\infty} (a_k  \cos(kx) + b_k  \sin(kx))
+    \]
+   converges uniformly to a function \(f\), the $S$ is the Fourier series of \(f\), i.e. $S(f)$.
+\end{theorem}
+\end{frame}
+
+
+
+
+\section{Summability}
+
+
+
+
+\begin{frame}{Cesaro Sums}
+    We ask whether the Fourier Series of $f$ converge to $f$ or not. It turns out to be really difficult question. Here comes a weaker version of convergence.
+    \begin{definition}[Cesaro Summable]
+        A series $\sum_{k=0}^{\infty} a_k$ with partial sums $S_N$ is said to be \textit{Cesaro summable} to $L$ if \textit{Cesaro means}
+    \[
+    \sigma_N \vcentcolon =  \frac{S_0 + S_1 + \dots + S_N }{N+1}
+    \]
+    converges to $L$ as $N \longrightarrow \infty$.
+    \end{definition}
+\end{frame}
+
+
+
+
+    \begin{frame}{Two Kernels}
+    \small
+    In general, we will not deal with the original definitions but the equivalent versions of them. Two kernels defined here will make theorems a lot easier to prove via equivalences given as convolutions.
+    \begin{definition}[Kernels]
+        Let $N$ be a nonnegative integer.
+\begin{enumerate}
+  \item[(i)] The Dirichlet kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \[
+  D_N(x) = \begin{cases}
+            \frac{1}{2} & \text{if } N = 0, \\
+            \frac{1}{2}  + \sum_{k=1}^{N} \cos(kx) & \text{if } N \in \mathbb{N}.
+           \end{cases}
+  \]
+  
+  \item[(ii)] The Fejer kernel of order $N$ is the function defined, for each $x \in \mathbb{R}$, by
+  \[
+  K_N(x) = \begin{cases}
+            \frac{1}{2} & \text{if } N = 0, \\
+            \frac{1}{2} + \sum_{k=1}^{N}\left( 1 - \frac{k}{N + 1} \right)\cos(kx) & \text{if } N \in \mathbb{N}.
+           \end{cases}
+  \]
+\end{enumerate}
+    \end{definition}
+
+\end{frame}
+
+
+
+\section{Kernels}
+
+\begin{frame}{Investigation of Kernels}
+    \begin{remark}
+         If $N$ is a nonnegative integer, then
+\[
+K_N(x) = \frac{D_0(x) + D_1(x) + \dots + D_N(x)}{N+1}
+\]
+for all $x \in \mathbb{R}$.
+    \end{remark}
+
+    \begin{theorem}
+         If $x$ cannot be written in the form $2k\pi$ for some $k \in \mathbb{Z}$, then the following equalities hold
+
+    \[
+    D_N(x) = \frac{\sin\left(N + \frac{1}{2}\right)x}{2\sin(\frac{x}{2})} \text{,}
+    \]
+    \[
+    K_N(x) = \frac{2}{N+1}\left(\frac{\sin\left(\frac{N + 1}{2}\right)x}{2\sin(\frac{x}{2})}\right)^2 \text{.}
+    \]
+    \end{theorem}
+\end{frame}
+
+
+
+
+\begin{frame}[shrink = 9]{Equivalent Definitions via the Kernels}
+    \begin{theorem} If \(f\) is integrable, then,
+        \begin{itemize}
+            \item[(i)]
+    \[
+    S_N(f)(x) = \frac{1}{\pi}\int_{-\pi}^{\pi}f(t)D_N(x-t)\,dt \text{.}
+    \]
+            \item[(ii)] 
+    \[
+    \sigma_Nf(x) = \frac{1}{\pi} \int_{-\pi}^{\pi} K_N(t)f(x-t)dt
+    \]
+        \end{itemize}
+        for all $N \in \mathbb{N}$ and for all $ x \in \mathbb{R}$ where $D_N$ is the Dirichlet kernel and $K_N$ is the Fejer kernel.
+    \end{theorem}
+
+    \begin{lemma} For each natural number $N$, the following properties hold:
+    \begin{align*}
+        K_N(t) &\geq 0 \text{ for all } t \in \mathbb{R}, \\
+        \frac{1}{\pi}\int_{-\pi}^{\pi} K_N(t) \, dt &= 1, \\
+        \lim_{N \to \infty} \int_{\delta}^{\pi} |K_N(t)| \, dt &= 0 \text{ for each $\pi > \delta > 0$.}\\ 
+    \end{align*}
+    \end{lemma}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Semi-Convergence}
+\small
+\begin{theorem}[Fejer]
+    Suppose that $f: \mathbb{R} \to \mathbb{R}$ is periodic and integrable on each compact interval.
+    
+        1. If \begin{equation*}
+             L = \lim_{h \to 0} \frac{f(x_0 + h) + f(x_0 - h)}{2}
+        \end{equation*}
+       
+        exists for some $x_0 \in \mathbb{R}$, then $\sigma_Nf(x_0) \to L$ as $N \to \infty$.   \\
+        2. If \(f\) is continuous in some closed interval $I$, then $\sigma_Nf \to f$ uniformly on $I$.
+    
+\end{theorem}
+
+An important theorem can be proven using \textit{Fejer Theorem}:
+\begin{theorem}[Weierstrass Approximation Theorem]
+Let $[a, b]$ be a closed bounded interval, and suppose that $f : [a, b] \rightarrow \mathbb{R}$ is continuous on $[a, b]$. Given $c > 0$, there exists a (classical) polynomial $P$ on $\mathbb{R}$ such that $|f(x) - P(x)| < c$ for all $x \in [a, b]$.
+    
+\end{theorem}
+\end{frame}
+
+
+
+\section{Fourier Coefficients}
+
+
+\begin{frame}{Bassel's Inequality }
+
+    \begin{theorem}[Bessel's Inequality]\label{bassel inequality}
+Let $f(x)$ be a function defined on the interval $[-\pi, \pi]$. If $f(x)$ is integrable, the series $\sum_{k=1}^{\infty}a_k(f)^2 + b_k(f)^2$ converges. Moreover, the inequality below holds:
+\begin{equation*}
+    \frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 \, dx \geq \frac{a_0(f)^2}{2} + \sum_{n=1}^{\infty} \left(a_n(f)^2 + b_n(f)^2\right).
+\end{equation*}
+\end{theorem}
+
+\begin{lemma}\label{lemma needed to prove basels inequality}
+     If $f: \mathbb{R} \to \mathbb{R}$ is integrable on $[-\pi, \pi]$, then,
+     \begin{equation*}
+     \begin{aligned}
+         \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)S_Nf(x) \, dx
+         &= \frac{a_0(f)^2}{2} + \sum_{n=1}^{N} \left(a_n(f)^2 +
+         b_n(f)^2\right)\\
+         &=  \frac{1}{\pi} \int_{-\pi}^{\pi} |S_Nf(x)|^2  dx
+     \end{aligned}
+     \end{equation*}
+ \end{lemma}
+    
+\end{frame}
+
+
+
+
+\begin{frame}{Convergence to 0}
+    \small
+    We know that if a series converges, then its terms converge to zero. Here, we get a reason to hope $Sf$ will converge to $f$.
+    \begin{theorem}[Riemann-Lebesque Lemma]
+        If $f$ is integrable on $[-\pi,\pi]$, then
+        \[
+        \lim_{k \to \infty}a_k(f)  = \lim_{k \to \infty}b_k(f) = 0
+        \]
+    \end{theorem}
+
+    \begin{theorem}[Parseval's Identity]
+        If $f: \mathbb{R} \to \mathbb{R}$ is periodic and continuous, then
+        \[
+        \frac{a_0(f)^2}{2} + \sum_{k = 1}^{\infty}(a_k(f)^2 + b_k(f)^2) = \frac{1}{\pi}\int_{-\pi}^{\pi}f^2
+        \]
+    \end{theorem}
+\end{frame}
+
+
+
+
+\begin{frame}{Speed of convergence to 0}
+    Depending of the properties of a given function, we can estimate how fast the coefficients will converge to 0.
+    \begin{theorem}
+        Given a function \( f : \mathbb{R} \to \mathbb{R} \) and \( j \in \mathbb{N} \). If \( f^{(j)} \) exists and is integrable on the interval \([-\pi, \pi]\) and \( f^{(l)} \) is periodic for each \( 0 \leq l < j \), then
+\[
+\lim_{{k \to \infty}}k^ja_k(f)  = \lim_{{k \to \infty}} k^jb_k(f) = 0.
+\]
+
+    \end{theorem}
+\end{frame}
+
+
+
+\begin{frame}{Functions of Bounded Variation}
+\small
+    In order to answer our \emph{Convergence question} we need to have restriction on the \emph{variation} of a function.
+
+    \begin{definition}
+    Let $\phi : [a,b] \to \RR$ and $P = \{x_0, \dots, x_n\}$ be an interval partition of $[a,b]$.
+
+Set
+\[
+V(\phi,P) = \sum_{k=0}^{n-1}|\phi(x_{k+1}) - \phi(x_{k})|.
+\]
+The \emph{variation} of $\phi$ is defined as
+\begin{equation*}
+    Var(\phi) \coloneqq \sup\{V(\phi,P)| P \in IP[a,b]\}
+\end{equation*}
+$\phi$ is said to be \emph{of bounded variation} if $Var(\phi) < \infty$.
+\end{definition}
+
+\begin{example}
+    The function $\sin(\frac{1}{x})$ is of bounded variations only on the intervals $[a,b]$ which do not contain 0.
+\end{example}
+    
+\end{frame}
+
+
+\begin{frame}{Relation to Fourier Series}
+This theorem will be useful for our answer to convergence question.
+    \begin{theorem}\label{growth of ceof. of bdd. var.}
+    If $f$ is periodic and of bounded variation, then
+    \[
+    |ka_k(f)|\leq \frac{Var(f)}{\pi}  \text{ and }  |kb_k(f)| \leq \frac{Var(f)}{\pi} \text{, for all $k \in \NN$.}
+    \]
+\end{theorem}
+\end{frame}
+
+\section{Convergence}
+
+\begin{frame}{Tauberian Type Theorems}
+    \begin{theorem}[Tauberian]
+    Let $a_k \geq 0$ and $L \in \RR$. If the series $\sum_{k=0}^{\infty} a_k$ is Ceasaro summable to $L$, then it converges to $L$,
+    \[
+    \sum_{k=0}^{\infty} a_k = L.
+    \]
+\end{theorem}
+
+
+\begin{theorem}[Hardy]\label{Hardy}
+    Let $E \subset \RR$ and suppose that $f_k: \RR \to \RR$ is a sequence of functions that satisfy
+    \[
+    |kf_k(x)| < M
+    \]
+    for all $x \in \RR$, all $k \in \NN$ and some $M > 0$. If $\sum_{k=0}^{\infty}f_k$ is uniformly Cesaro summable to $f$ on $E$,
+    then it converges to $f$ uniformly on $E$.
+\end{theorem}
+
+\end{frame}
+
+
+\begin{frame}{Convergence}
+    At the end, we reach our aim.
+    \begin{theorem}[Dirichlet - Jordan]\label{Dirichlet - Jordan}
+    If a real valued function $f$ is periodic of bounded variation on $[-\pi,\pi]$, then
+    \[
+    \lim_{n \to \infty}S_nf(x) = \frac{f(x+) + f(x-)}{2}
+    \]
+
+    If $f$ is also continuous on some closed interval $I$, then
+    \[
+    \lim_{n \to \infty}S_nf = f
+    \]
+    uniformly on $I$.
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Upper bound for coefficients of functions of bounded variation
+        \item Fejer theorem
+        \item Hardy theorem
+    \end{enumerate}
+\end{proof}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Some Examples}
+
+\begin{example}
+    Let us demostrate the use of \emph{Dirichlet - Jordan theorem}.
+    \begin{itemize}
+        \item[(i)] The function $f(x) = x$ can be represented as a series
+        \[
+        x = 2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\sin(kx)
+        \]
+        whose convergence is strictly pointwise on $(-\pi,\pi)$ and uniformly on any $[a,b] \subset (-\pi,\pi)$.
+        \item[(ii)] Since $f(x) = |x|$ is continuous and periodic on $[-\pi,\pi]$, we can use \emph{Dirichlet - Jordan theorem} and conclude that the series
+        \[
+        |x| = \frac{\pi}{2} - \frac{4}{\pi} \sum_{k=1}^{\infty}\frac{\cos(2k-1)x}{(2k-1)^2}
+        \]
+        converges uniformly on $[-\pi,\pi]$.
+    \end{itemize}
+\end{example}
+    
+\end{frame}
+
+
+
+\section{Summary}
+\begin{frame}{Summary}
+    \small
+    \begin{enumerate}
+        \item Influences on modern analysis
+        \item Trigonometric polynomials and orthogonality properties
+        \item Definition of Fourier Series
+        \item Cesaro summability of Fourier Series and semi-convergence
+        \item Two kernels and their use
+        \item Behaviour of Fourier coefficients
+        \item Riemann - Lebesque Lemma
+        \item Bassel's Inequality and Parseval's Identity 
+        \item Functions of bounded variation
+        \item Tauberian and Hardy Theorems
+        \item Answer to convergence question (Dirichlet-Jordan)
+    \end{enumerate}
+\end{frame}
+
+
+
+\section{References}
+
+
+\begin{frame}{References}
+\small
+    \begin{thebibliography}{}
+
+        % Article is the default.
+        %\setbeamertemplate{bibliography item}[book]
+
+        \bibitem{Wade}
+        Wade, W.R.
+        \newblock \emph{Introduction to Analysis}.
+        \newblock Pearson, 2004.
+
+        \bibitem{History}
+        Niels Jacob and Kristian P. Evans
+        \newblock \emph{A course in Analysis}.
+        \newblock World Scientific, 2018.
+
+        
+    \end{thebibliography}
+\end{frame}
+
+
+\end{document}
